@@ -22,7 +22,7 @@ const navigation=useNavigation<any>()
   return (
     <Formik
       initialValues={{
-      name: '',
+        name: '',
         phoneNo: '',
         email: '',
         password: '',
