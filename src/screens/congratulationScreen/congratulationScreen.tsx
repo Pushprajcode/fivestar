@@ -17,11 +17,13 @@ export default function CongratulationScreen() {
 }</Text>
  
         
-         
+          <Text>{'HELLO WORLD'}</Text> 
 
 
      </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})
