@@ -1,9 +1,9 @@
-
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {Formik} from 'formik';
-import  React from 'react';
-import VerificationOtp from '../../utils/VerificationOtp';
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import SingUpApiCall from './action';
 import {
   Alert,
   Text,
@@ -14,11 +14,10 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import * as yup from 'yup';
-
-
+import onGoogleButtonPress from '../../utils/googleSignIn';
 const SignUp = () => {
-const navigation=useNavigation<any>()
-
+  const navigation = useNavigation<any>();
+  const dispatch = useDispatch<any>();
   return (
     <Formik
       initialValues={{
@@ -27,38 +26,19 @@ const navigation=useNavigation<any>()
         email: '',
         password: '',
         acceptTerms: false,
-        hidePassword: false,
+        hidePassword: true,
+        //countryCode:" "
       }}
-      onSubmit={(values, {resetForm}) => {
-        Alert.alert('Successfully submitted');
-        console.log('values', values.acceptTerms);
-        console.log('valueswhole', values);
-        axios({
-          method:'post',
-          url:'https://fivestardevapi.appskeeper.in/api/v1/user/signup',
-          data:{
-            name:values.name,
-            phoneNo:values.phoneNo,
-            email:values.email,
-            password:values.password,
-            countryCode:'+1'
-          }
-        })
-        .then(response=>{
-          console.log('response',response);
-          
-        })
-        .catch(err=>{
-          console.log('error',err);
-          
-        });
-      //  <VerificationOtp/>
-
-    
-        resetForm();
+      onSubmit={(values: any, {resetForm}) => {
+        // Alert.alert('Successfully submitted');
+        // console.log('values', values.acceptTerms);
+        // console.log('valueswhole', values);
+        dispatch(SingUpApiCall(values));
+        navigation.navigate('VerificationOtpScreen');
+        //resetForm();
       }}
       validationSchema={yup.object().shape({
-      name: yup.string().required('Please enter FullName'),
+        name: yup.string().required('Please enter FullName'),
         phoneNo: yup
           .number()
           .typeError("That doesn't look like a phone number")
@@ -182,12 +162,12 @@ const navigation=useNavigation<any>()
                 {values.hidePassword ? (
                   <Image
                     style={styles.eye}
-                    source={require('../../assets/images/Vector.png')}
+                    source={require('../../assets/images/eye.png')}
                   />
                 ) : (
                   <Image
                     style={styles.eye}
-                    source={require('../../assets/images/eyewhite.png')}
+                    source={require('../../assets/images/Vector.png')}
                   />
                 )}
               </TouchableOpacity>
@@ -219,16 +199,18 @@ const navigation=useNavigation<any>()
               )}
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.terms}>{'I agree to the '}</Text>
-                <TouchableOpacity 
-                 onPress={()=>{navigation.navigate('SignUp')}}>
-                <Text style={styles.use}>{'Terms of Use* '}</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('SignUp');
+                  }}>
+                  <Text style={styles.use}>{'Terms of Use* '}</Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View style={{marginVertical: 9}}>
               <TouchableOpacity
                 style={isValid ? styles.buttonUpdate : styles.button}
-                 disabled={!isValid}
+                disabled={!isValid}
                 onPress={handleSubmit}>
                 <Text style={styles.text}>{'CREATE ACCOUNT'}</Text>
               </TouchableOpacity>
@@ -238,37 +220,37 @@ const navigation=useNavigation<any>()
               <Text style={styles.orText}>{'OR'}</Text>
               <View style={styles.orEnd}></View>
             </View>
-            <TouchableOpacity style={styles.google}>
+            <TouchableOpacity
+              style={styles.google}
+              onPress={() => {
+                onGoogleButtonPress();
+              }}>
               <Image
                 style={styles.googleImage}
                 source={require('../../assets/images/google.png')}
               />
               <Text style={styles.naming}>{'Continue with Google'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.google}
-              onPress={()=>{
+            <TouchableOpacity
+              style={styles.google}
+              onPress={() => {
                 axios({
-                  method:'post',
-                  url:'https://fivestardevapi.appskeeper.in/api/v1/user/verify-only-otp',
-                  data:{
-                      
-                          userId:'62a189d0149d0b7ee8dcfa0d',
-                          otp: "1234",
-                          countryCode: '+1',
-                          phoneNo:"9919898006"
-                  }
+                  method: 'post',
+                  url: 'https://fivestardevapi.appskeeper.in/api/v1/user/verify-only-otp',
+                  data: {
+                    userId: '62a189d0149d0b7ee8dcfa0d',
+                    otp: '1234',
+                    countryCode: '+1',
+                    phoneNo: '9919898006',
+                  },
                 })
-                .then(response=>{
-                  console.log('response OTP',response);
-                  
-                })
-                .catch(err=>{
-                  console.log('error',err);
-                  
-                })
-
-              }}
-            >
+                  .then(response => {
+                    console.log('response OTP', response);
+                  })
+                  .catch(err => {
+                    console.log('error', err);
+                  });
+              }}>
               <Image
                 style={styles.googleImage}
                 source={require('../../assets/images/apple.png')}
@@ -297,26 +279,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   create: {
-    color: 'white',
+    color: '#ffffff',
     fontWeight: '900',
     fontSize: 26,
     fontStyle: 'italic',
     lineHeight: 24,
   },
   getStart: {
-    color: 'white',
+    color: '#ffffff',
     fontSize: 15,
     lineHeight: 32,
   },
   textInput: {
     //marginVertical:8
-    marginBottom:5
-    ,
-    marginTop:5
+    marginBottom: 5,
+    marginTop: 5,
   },
   alert: {
     fontSize: 12,
-    color: 'red',
+    color: 'FF0000',
     // alignSelf: 'center',
   },
   button: {
@@ -325,7 +306,6 @@ const styles = StyleSheet.create({
 
     backgroundColor: '#282828',
     alignSelf: 'center',
-   
   },
   buttonUpdate: {
     height: 45,
@@ -394,7 +374,7 @@ const styles = StyleSheet.create({
     width: 150,
   },
   google: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     flexDirection: 'row',
     padding: 15,
     justifyContent: 'center',

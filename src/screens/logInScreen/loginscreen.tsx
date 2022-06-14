@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,8 @@ import {
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {useNavigation} from '@react-navigation/native';
-import SignUp from './signup';
-import axios from 'axios'
+import axios from 'axios';
+import onGoogleButtonPress from '../../utils/googleSignIn';
 function LoginScreen(): any {
   const navigation = useNavigation<any>();
   interface values {
@@ -26,19 +26,19 @@ function LoginScreen(): any {
         email: '',
         password: '',
         hidePassword: true,
-        phoneNo:''
+        phoneNo: '',
       }}
       onSubmit={(values, {resetForm}) => {
         //Alert.alert('Successfully submitted');
         console.log({values});
         axios({
-          method:'post',
-          url:'https://fivestardevapi.appskeeper.in/api/v1/user/login',
+          method: 'post',
+          url: 'https://fivestardevapi.appskeeper.in/api/v1/user/login',
           data: {
-            email:values.email,
-            password:values.password,
-            countryCode: "+1",
-            phoneNo: ""
+            email: values.email,
+            password: values.password,
+            countryCode: '+1',
+            phoneNo: '',
           },
         })
           .then(resp => {
@@ -48,7 +48,6 @@ function LoginScreen(): any {
             console.log('error', err);
           });
         resetForm();
-
       }}
       validationSchema={yup.object().shape({
         email:
@@ -77,7 +76,6 @@ function LoginScreen(): any {
         setFieldValue,
         isValid,
       }) => (
-        
         <View style={styles.mainView}>
           <View>
             <Text style={styles.using}>
@@ -114,7 +112,7 @@ function LoginScreen(): any {
                 {values.hidePassword ? (
                   <Image
                     style={styles.eye}
-                    source={require('../../assets/images/eyewhite.png')}
+                    source={require('../../assets/images/eye.png')}
                   />
                 ) : (
                   <Image
@@ -133,9 +131,7 @@ function LoginScreen(): any {
             <TouchableOpacity
               disabled={!isValid}
               style={isValid ? styles.button : styles.buttonUpdate}
-              onPress={handleSubmit
-                    
-              }>
+              onPress={handleSubmit}>
               <Text style={styles.textSign}>{'SIGN IN'}</Text>
             </TouchableOpacity>
             <View style={styles.orView}>
@@ -143,7 +139,7 @@ function LoginScreen(): any {
               <Text style={styles.orText}>{'OR'}</Text>
               <View style={styles.orEnd}></View>
             </View>
-            <TouchableOpacity style={styles.google}>
+            <TouchableOpacity onPress={()=>onGoogleButtonPress()} style={styles.google}>
               <Image
                 style={styles.googleImage}
                 source={require('../../assets/images/google.png')}
@@ -158,15 +154,16 @@ function LoginScreen(): any {
               />
               <Text style={styles.naming}>{'Continue with Apple'}</Text>
             </TouchableOpacity>
+
             <View style={styles.newUser}>
               <Text style={styles.new}>{"I'm a new user"}</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('SignUp')
-               
+                  navigation.navigate('SignUp');
                 }}>
                 <Text style={styles.signUp}>{'Sign Up'}</Text>
               </TouchableOpacity>
+             
             </View>
           </View>
         </View>
@@ -212,7 +209,7 @@ const styles = StyleSheet.create({
   },
   passwordVeiw: {
     flexDirection: 'row',
-    borderColor: 'white',
+    borderColor: '#ffffff',
     borderWidth: 1,
     width: 327,
     alignItems: 'center',

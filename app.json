@@ -1,4 +1,5 @@
 {
   "name": "fivestardemo",
-  "displayName": "fivestardemo"
+  "displayName": "fivestardemo",
+  "plugins": ["@react-native-google-signin/google-signin"]
 }
