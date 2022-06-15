@@ -12,11 +12,10 @@ import React, {useState,useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import OtpAction from './action';
 import OtpInput from '../../components/otpInput';
-import CongratulationScreen from '../congratulationScreen/congratulationScreen';
-import Navigation from '../../redux/Router/Navigation';
 import { useNavigation } from '@react-navigation/native';
-
+import Navigation from '../../redux/Router/Navigation';
 export default function VerificationOtpScreen() {
+  const[ismodalVisible,setModalVisible]=useState(false)
   const navigation= useNavigation();
   const arr = [1, 7, 8, 4];
   const [str, setStr] = useState('');
@@ -35,8 +34,12 @@ export default function VerificationOtpScreen() {
           {'Enter Verification Code'}
         </Text>
         <Text style={styles.digitVerification}>
-          {'Kindly enter the 4 digit verification code sent to +17345678926'}{' '}
-          {'Edit'}
+          {'Kindly enter the 4 digit verification code sent to'}{' '}
+         <TouchableOpacity> 
+           <Text>
+           {'Edit'}
+           </Text>
+           </TouchableOpacity> 
         </Text>
         <View
           style={{
@@ -61,9 +64,8 @@ export default function VerificationOtpScreen() {
         <TouchableOpacity
           onPress={() => {
             console.log(str),
-            
-            navigation.navigate('CongratulationScreen')
-            dispatch(OtpAction(str));
+            dispatch(OtpAction(str))
+
           }}
           style={{
             backgroundColor: '#44C2E3',
@@ -75,7 +77,10 @@ export default function VerificationOtpScreen() {
           <Text style={{color: '#FFFFFF'}}>{'Submit'}</Text>
         </TouchableOpacity>
         <Text style={{color: 'white'}}>{'Didnt Received the Code yet? '}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+           navigation.navigate('FanAthelite')
+        }}
+       >
           <Text style={styles.resendVerification}>
             {'Resend Verification Code'}
           </Text>
@@ -91,9 +96,19 @@ export default function VerificationOtpScreen() {
           source={require('../../assets/images/Boxer.png')}
         />
       </View>
+
     </SafeAreaView>
   );
 }
+
+//useRef(null), text1, text2
+//onChangeText input - { () => {
+//   if(text = 1)
+//   set
+//   ref.focus()
+// }}
+
+
 
 const styles = StyleSheet.create({
   safeAreastyle:{
