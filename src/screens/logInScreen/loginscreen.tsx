@@ -29,24 +29,8 @@ function LoginScreen(): any {
         phoneNo: '',
       }}
       onSubmit={(values, {resetForm}) => {
-        //Alert.alert('Successfully submitted');
+        Alert.alert('Successfully submitted');
         console.log({values});
-        axios({
-          method: 'post',
-          url: 'https://fivestardevapi.appskeeper.in/api/v1/user/login',
-          data: {
-            email: values.email,
-            password: values.password,
-            countryCode: '+1',
-            phoneNo: '',
-          },
-        })
-          .then(resp => {
-            console.log('responsedata', resp);
-          })
-          .catch(err => {
-            console.log('error', err);
-          });
         resetForm();
       }}
       validationSchema={yup.object().shape({
@@ -54,7 +38,7 @@ function LoginScreen(): any {
           yup
             .string()
             .email('Invalid email address format')
-            .required('Email is required') ||
+            .required('Please enter a valid email.') ||
           yup.object({
             phone: yup
               .string()
@@ -91,7 +75,7 @@ function LoginScreen(): any {
               onBlur={() => setFieldTouched('email')}
               placeholderTextColor={'#ffffff'}
             />
-            <Text style={styles.alert}>
+            <Text style={styles.alertMail}>
               {touched.email && errors.email && errors.email}
             </Text>
 
@@ -122,7 +106,7 @@ function LoginScreen(): any {
                 )}
               </TouchableOpacity>
             </View>
-            <Text style={styles.alert}>
+            <Text style={styles.alertPassword}>
               {touched.password && errors.password && errors.password}
             </Text>
             <TouchableOpacity>
@@ -194,18 +178,16 @@ const styles = StyleSheet.create({
     // left: 24,
   },
   textInput: {
-    margin: 10,
+    // margin: 10,
+    marginHorizontal:10,
     height: 48,
-    // width: 327,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#FFFFFF',
     color: '#44C2E3',
-    // left: 17,
     padding: 16,
     paddingTop: 12,
     paddingBottom: 12,
-    //fontWeight:'900'
   },
   passwordVeiw: {
     flexDirection: 'row',
@@ -216,7 +198,8 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 5,
     alignSelf: 'center',
-    // marginLeft: 30,
+    marginTop:10
+    
   },
   passwordText: {
     marginLeft: 0,
@@ -225,12 +208,9 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     margin: 10,
     height: 48,
-
     borderRadius: 5,
-
     borderColor: '#FFFFFF',
     color: '#44C2E3',
-
     padding: 16,
     paddingTop: 12,
     paddingBottom: 12,
@@ -276,17 +256,24 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     textTransform: 'uppercase',
   },
-  alert: {
+  alertMail: {
+    paddingTop:10,
+    paddingLeft:10,
+    fontSize: 12,
+    color: 'red', 
+  },
+  alertPassword:{
     fontSize: 12,
     color: 'red',
-    //left: 22,
+    marginHorizontal:2,
+    padding:8
+
   },
   orView: {
     alignSelf: 'center',
     marginVertical: 50,
     alignItems: 'center',
     flexDirection: 'row',
-    // left: 13,
   },
   orText: {
     color: '#595959',
@@ -323,7 +310,6 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'center',
     borderRadius: 5,
-    // left: 12,
   },
   googleImage: {
     height: 20,

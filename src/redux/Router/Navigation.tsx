@@ -7,6 +7,13 @@ import LoginScreen from '../../screens/logInScreen/loginscreen';
 import SignUp from '../../screens/signUpScreen/signup';
 import VerificationOtpScreen from '../../screens/verificationOtpScreen/verificationOtpScreen';
 import CongratulationScreen from '../../screens/congratulationScreen/congratulationScreen';
+import TermsScreen from '../../screens/termsConditionScreen/termsScreen';
+import FanAthelite from '../../screens/fanAthelite/fanAthelite';
+import CompleteProfile from '../../screens/profileScreen/completeProfile';
+
+
+
+
 const stack = createNativeStackNavigator();
 const Navigation: React.FC = () => {
   return (
@@ -20,6 +27,9 @@ const Navigation: React.FC = () => {
         <stack.Screen name="SignUp" component={SignUp} />
         <stack.Screen name="VerificationOtpScreen" component={VerificationOtpScreen}/>
         <stack.Screen name="CongratulationScreen" component={CongratulationScreen}/>
+        <stack.Screen name='TermsScreen' component={TermsScreen}/>
+        <stack.Screen name='FanAthelite' component={FanAthelite}/>
+        <stack.Screen name="CompleteProfile" component={CompleteProfile}/>
       </stack.Navigator>
     </NavigationContainer>
   );

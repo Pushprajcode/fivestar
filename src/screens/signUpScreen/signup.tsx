@@ -198,10 +198,13 @@ const SignUp = () => {
                 <Text style={styles.alert}>{errors.acceptTerms}</Text>
               )}
               <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity >
                 <Text style={styles.terms}>{'I agree to the '}</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('SignUp');
+                    navigation.navigate('SignUp'),
+                    navigation.navigate('TermsScreen')
                   }}>
                   <Text style={styles.use}>{'Terms of Use* '}</Text>
                 </TouchableOpacity>
@@ -297,7 +300,8 @@ const styles = StyleSheet.create({
   },
   alert: {
     fontSize: 12,
-    color: 'FF0000',
+    color: '#FF6258',
+    padding:0
     // alignSelf: 'center',
   },
   button: {

@@ -9,10 +9,13 @@ import Navigation from "./src/redux/Router/Navigation";
 import { store } from "./src/redux/reducer/store";
 
 
+
 const App: React.FC = () =>{
   return (
+    
     <Provider store={store}>
     <Navigation/> 
+     
     </Provider>
     
    
@@ -21,4 +24,6 @@ const App: React.FC = () =>{
 }
 export default App;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  
+})
