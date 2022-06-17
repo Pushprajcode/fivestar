@@ -1,29 +1,13 @@
-import React from "react";
-import{
-  View,
-  StyleSheet
-
-} from 'react-native'
+import React from 'react';
 import {Provider} from 'react-redux';
-import Navigation from "./src/redux/Router/Navigation";
-import { store } from "./src/redux/reducer/store";
+import NavigationScreen from './src/router';
+import {store} from './src/redux/reducer/store';
 
-
-
-const App: React.FC = () =>{
+const App = () => {
   return (
-    
     <Provider store={store}>
-    <Navigation/> 
-     
+      <NavigationScreen />
     </Provider>
-    
-   
-
-  )
-}
+  );
+};
 export default App;
-
-const styles = StyleSheet.create({
-  
-})

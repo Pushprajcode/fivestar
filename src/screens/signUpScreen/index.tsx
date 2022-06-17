@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {Formik} from 'formik';
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import SingUpApiCall from './action';
 import {
   Alert,
@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import * as yup from 'yup';
+import COLOR from '../../utils/colors';
 import onGoogleButtonPress from '../../utils/googleSignIn';
 const SignUp = () => {
   const navigation = useNavigation<any>();
@@ -27,15 +28,12 @@ const SignUp = () => {
         password: '',
         acceptTerms: false,
         hidePassword: true,
-        //countryCode:" "
       }}
       onSubmit={(values: any, {resetForm}) => {
-        // Alert.alert('Successfully submitted');
-        // console.log('values', values.acceptTerms);
-        // console.log('valueswhole', values);
+        Alert.alert('Successfully submitted');
         dispatch(SingUpApiCall(values));
         navigation.navigate('VerificationOtpScreen');
-        //resetForm();
+        resetForm();
       }}
       validationSchema={yup.object().shape({
         name: yup.string().required('Please enter FullName'),
@@ -57,7 +55,6 @@ const SignUp = () => {
         values,
         handleChange,
         errors,
-        setFieldTouched,
         touched,
         handleSubmit,
         setFieldValue,
@@ -84,10 +81,10 @@ const SignUp = () => {
               onChangeText={handleChange('name')}
               theme={{
                 colors: {
-                  placeholder: 'white',
-                  text: 'white',
-                  primary: 'red',
-                  background: 'black',
+                  placeholder: COLOR.White,
+                  text: COLOR.White,
+                  primary: COLOR.Red,
+                  background: COLOR.Black,
                 },
               }}
             />
@@ -198,13 +195,13 @@ const SignUp = () => {
                 <Text style={styles.alert}>{errors.acceptTerms}</Text>
               )}
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity >
-                <Text style={styles.terms}>{'I agree to the '}</Text>
+                <TouchableOpacity>
+                  <Text style={styles.terms}>{'I agree to the '}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('SignUp'),
-                    navigation.navigate('TermsScreen')
+                      navigation.navigate('TermsScreen');
                   }}>
                   <Text style={styles.use}>{'Terms of Use* '}</Text>
                 </TouchableOpacity>
@@ -275,39 +272,36 @@ export default SignUp;
 const styles = StyleSheet.create({
   mainView: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: COLOR.Black,
   },
   createView: {
     marginTop: 70,
     marginHorizontal: 24,
   },
   create: {
-    color: '#ffffff',
+    color:COLOR.White,
     fontWeight: '900',
     fontSize: 26,
-    fontStyle: 'italic',
-    lineHeight: 24,
+    fontStyle:'italic',
+    lineHeight:24,
   },
   getStart: {
-    color: '#ffffff',
+    color: COLOR.White,
     fontSize: 15,
     lineHeight: 32,
   },
   textInput: {
-    //marginVertical:8
     marginBottom: 5,
     marginTop: 5,
   },
   alert: {
     fontSize: 12,
     color: '#FF6258',
-    padding:0
-    // alignSelf: 'center',
+    padding: 0,
   },
   button: {
     height: 45,
     width: '100%',
-
     backgroundColor: '#282828',
     alignSelf: 'center',
   },
@@ -347,7 +341,7 @@ const styles = StyleSheet.create({
   terms: {
     alignSelf: 'center',
     left: 1,
-    color: '#ffffff',
+    color: COLOR.White,
     fontSize: 15,
   },
   image: {
@@ -378,7 +372,7 @@ const styles = StyleSheet.create({
     width: 150,
   },
   google: {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLOR.White,
     flexDirection: 'row',
     padding: 15,
     justifyContent: 'center',

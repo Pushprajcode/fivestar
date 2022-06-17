@@ -5,7 +5,7 @@ import {
   Image,
   Animated,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 
 import React, {useEffect, useRef} from 'react';
@@ -31,7 +31,7 @@ function SplashScreen(): any {
   }, 3000);
   return (
     <View style={styles.container}>
-      <StatusBar hidden={true}/>
+      <StatusBar hidden={true} />
       <Image
         style={styles.image}
         source={require('../../assets/images/splashman.png')}

@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-//import SignUpReducer from "../../screens/signUpScreen/signUpReducer";
-import SignUpReducer from "../../screens/signUpScreen/signUpReducer";
-const rootReducer=combineReducers({
-    SignUpReducer
-})
-export default rootReducer
+import {combineReducers} from 'redux';
+import signUpReducer from '../../screens/signUpScreen/reducer';
+
+const rootReducer = combineReducers({
+  signUpReducer,
+});
+export default rootReducer;

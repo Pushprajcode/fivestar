@@ -7,8 +7,8 @@ const SingUpApiCall = (values: {
   password: string;
   countryCode: string;
 }) => {
-  // console.log('signupapiactionvalue',values);
-  return (dispatch: any, getState: any) => {
+  console.log('signupapiactionvalue', values);
+  return (dispatch: any) => {
     axios({
       method: 'post',
       url: 'https://fivestardevapi.appskeeper.in/api/v1/user/signup',
@@ -21,7 +21,7 @@ const SingUpApiCall = (values: {
       },
     })
       .then(resp => {
-        dispatch({type:'SET_USERID',payload:{...resp.data.data} });
+        dispatch({type:'SET_USERID', payload: resp.data.data});
         console.log('response', resp);
       })
       .catch(err => {
