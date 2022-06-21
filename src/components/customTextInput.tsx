@@ -1,29 +1,30 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
+import COLOR from '../utils/colors';
+
 export default function CustomTextInput(props: any) {
   return (
     <TextInput
       {...props}
+      dense={true}
       style={styles.textInput}
       mode="outlined"
-      outlineColor="white"
-      activeOutlineColor=""
+      outlineColor={COLOR.WHITE}
+      activeOutlineColor={COLOR.WHITE}
       theme={{
         colors: {
-          placeholder: '#FFFFFF',
-          text: '#FFFFFFF',
-          primary: '#FF0000',
-          background: 'black',
+          placeholder: COLOR.WHITE,
+          text: COLOR.PRIMARY_BLUE,
+          background: COLOR.BLACK,
         },
       }}
     />
   );
 }
-
 const styles = StyleSheet.create({
   textInput: {
-    marginVertical: 19,
-    marginHorizontal: 20,
+    marginBottom: 5,
+    marginTop: 5,
   },
 });

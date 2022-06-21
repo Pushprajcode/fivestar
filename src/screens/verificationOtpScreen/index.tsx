@@ -5,53 +5,103 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
+  TextInput,
 } from 'react-native';
 import React, {useState, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import OtpAction from './action';
-import OtpInput from '../../components/otpInput';
 import {useNavigation} from '@react-navigation/native';
 import COLOR from '../../utils/colors';
+import CustomBackButton from '../../components/customBackButton';
+import STRINGS from '../../utils/strings';
+import { ScreenStackHeaderLeftView } from 'react-native-screens';
 export default function VerificationOtpScreen() {
   const navigation = useNavigation();
-  const arr = [1, 7, 8, 4];
+ 
+  const [pin1, setPin1] = useState('');
+  const [pin2, setPin2] = useState('');
+  const [pin3, setPin3] = useState('');
+  const [pin4, setPin4] = useState('');
   const [str, setStr] = useState('');
+  const arr = [pin1,pin2,pin3,pin4];
   const dispatch = useDispatch();
   const Ref = useRef<any>(null);
   return (
     <SafeAreaView style={styles.safeAreastyle}>
       <View style={styles.mainViewStyle}>
-        <Image
-          style={styles.backImage}
-          source={require('../../assets/images/VectorBack.png')}
-        />
+        <CustomBackButton />
+
         <Text style={styles.enterVerification}>
           {'Enter Verification Code'}
         </Text>
         <Text style={styles.digitVerification}>
-          {'Kindly enter the 4 digit verification code sent to'}{' '}
+          {STRINGS.TEXTLABLE.CODE_SENT}{' '}
           <TouchableOpacity>
             <Text>{'Edit'}</Text>
           </TouchableOpacity>
         </Text>
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 32,
             backgroundColor: 'black',
           }}>
-          {arr.map(item => {
-            return (
-              <OtpInput
-                callBack={(txt: string) => {
-                  let text = str + txt;
-                  setStr(text);
-                  console.log('jhgfdghjkj', text);
-                }}
-              />
-            );
-          })}
+          {arr.map(arr=> {
+          //   return (
+             
+          //       // callBack={(txt: string) => {
+          //          text = str + arr;
+          //        setStr(text);
+          //         console.log('jhgfdghjkj', text);
+          //       // }}
+  
+          //   )
+          // })}
+        </View> */}
+        <View style={{flexDirection: 'row'}}>
+          <TextInput
+            style={styles.textinput}
+            value={pin1}
+            maxLength={1}
+            onChangeText={text => {
+              setPin1(text);
+              if (pin1 != '') {
+                 //ref.focus()
+                
+              }
+            }}
+          />
+          <TextInput
+            style={styles.textinput}
+            value={pin2}
+            maxLength={1}
+            onChangeText={text => {
+              setPin2(text);
+              if (pin2 != '') {
+              }
+            }}
+          />
+          <TextInput
+            style={styles.textinput}
+            value={pin3}
+            maxLength={1}
+            onChangeText={text => {
+              setPin3(text);
+              if (pin3 != '') {
+              }
+            }}
+          />
+          <TextInput
+            style={styles.textinput}
+            value={pin4}
+            maxLength={1}
+            onChangeText={text => {
+              setPin4(text);
+              if (pin4 != '') {
+              }
+            }}
+          />
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -65,9 +115,11 @@ export default function VerificationOtpScreen() {
             alignItems: 'center',
             borderRadius: 5,
           }}>
-          <Text style={{color: COLOR.White}}>{'Submit'}</Text>
+          <Text style={{color: COLOR.WHITE}}>{'Submit'}</Text>
         </TouchableOpacity>
-        <Text style={{color: 'white'}}>{'Didnt Received the Code yet? '}</Text>
+        <Text style={{color: COLOR.WHITE}}>
+          {'Didnt Received the Code yet? '}
+        </Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('FanAthelite');
@@ -104,26 +156,35 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   mainViewStyle: {
-    marginHorizontal: 23,
+    marginHorizontal: 5,
   },
   backImage: {
     height: 20,
     width: 12,
   },
+  textinput:{
+    
+      backgroundColor: 'white',
+      height: 48,
+      width: 64,
+      alignItems: 'center',
+      marginHorizontal: 20,
+
+  },
   enterVerification: {
-    color: 'white',
+    color: COLOR.WHITE,
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 20,
   },
   digitVerification: {
-    color: 'white',
+    color: COLOR.WHITE,
     fontSize: 14,
     fontWeight: 'bold',
   },
 
   OtpBoxStyl: {
-    backgroundColor: 'white',
+    backgroundColor: COLOR.WHITE,
     height: 48,
     width: 64,
     paddingHorizontal: 25,

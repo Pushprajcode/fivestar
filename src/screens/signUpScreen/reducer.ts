@@ -6,7 +6,7 @@ const initialState = {
 
 const signUpReducer = (state = initialState, action: any) => {
   const {type, payload} = action;
-  console.log('actiondata', action);
+  console.log('actiondata',action);
 
   switch (type) {
     case 'SET_USERID':

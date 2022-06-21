@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
   Image,
@@ -11,15 +10,15 @@ import {
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
-import onGoogleButtonPress from '../../utils/googleSignIn';
-function LoginScreen(): any {
+import GoogleCustomButton from '../../components/customSocialButton';
+import CustomTextInput from '../../components/customTextInput';
+import {DisabledButton, EnabledButton} from '../../components/customButton';
+import STRINGS from '../../utils/strings';
+import IMAGES from '../../utils/localImages';
+import COLOR from '../../utils/colors';
+
+function LoginScreen() {
   const navigation = useNavigation<any>();
-  interface values {
-    email: string;
-    password: string;
-    hidePassword: boolean;
-  }
   return (
     <Formik
       initialValues={{
@@ -34,21 +33,14 @@ function LoginScreen(): any {
         resetForm();
       }}
       validationSchema={yup.object().shape({
-        email:
-          yup
-            .string()
-            .email('Invalid email address format')
-            .required('Please enter a valid email.') ||
-          yup.object({
-            phone: yup
-              .string()
-              .required('This field is Required')
-              .matches(
-                /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-                'Phone number is not valid',
-              ),
-          }),
-        password: yup.string().min(6).max(10).required(' Password is required'),
+        email: yup.string().email(STRINGS.TEXTLABLE.MAIL_MESSAGE),
+
+        password: yup
+          .string()
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+            STRINGS.TEXTLABLE.PASSWORD,
+          ),
       })}>
       {({
         values,
@@ -59,95 +51,71 @@ function LoginScreen(): any {
         handleSubmit,
         setFieldValue,
         isValid,
+        handleBlur,
       }) => (
         <View style={styles.mainView}>
-          <View>
-            <Text style={styles.using}>
-              {'Sign In Using Your\nMobile Number / Email'}
-            </Text>
-          </View>
+          <Text style={styles.using}>{STRINGS.TEXTLABLE.SIGN_UP_USING}</Text>
+
           <View style={styles.textView}>
-            <TextInput
-              style={styles.textInput}
+            <CustomTextInput
+              label="Email"
               value={values.email}
               onChangeText={handleChange('email')}
-              placeholder="Mobile Number / Email"
-              onBlur={() => setFieldTouched('email')}
-              placeholderTextColor={'#ffffff'}
+              onBlur={handleBlur('email')}
             />
-            <Text style={styles.alertMail}>
+            <Text style={styles.alert}>
               {touched.email && errors.email && errors.email}
             </Text>
 
             <View style={styles.passwordVeiw}>
-              <TextInput
-                style={styles.passwordText}
+              <CustomTextInput
+                label={'Password'}
                 value={values.password}
-                onChangeText={handleChange('password')}
-                placeholder="Password"
-                placeholderTextColor={'#ffffff'}
-                onBlur={() => setFieldTouched('password')}
                 secureTextEntry={values.hidePassword ? true : false}
+                onChangeText={handleChange('password')}
+                onBlur={() => setFieldTouched('password')}
               />
               <TouchableOpacity
                 onPress={() => {
                   setFieldValue('hidePassword', !values.hidePassword);
                 }}>
                 {values.hidePassword ? (
-                  <Image
-                    style={styles.eye}
-                    source={require('../../assets/images/eye.png')}
-                  />
+                  <Image style={styles.eyeClose} source={IMAGES.EYE_CLOSE_IMAGE} />
                 ) : (
-                  <Image
-                    style={styles.eyeNew}
-                    source={require('../../assets/images/Vector.png')}
-                  />
+                  <Image style={styles.eyeOpen} source={IMAGES.EYE_OPEN_IMAGE} />
                 )}
               </TouchableOpacity>
             </View>
-            <Text style={styles.alertPassword}>
+            <Text style={styles.alert}>
               {touched.password && errors.password && errors.password}
             </Text>
             <TouchableOpacity>
-              <Text style={styles.forget}>{'Forget Password?'}</Text>
+              <Text style={styles.forget}>
+                {STRINGS.TEXTLABLE.FOGET_PASSWORD}
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              disabled={!isValid}
-              style={isValid ? styles.button : styles.buttonUpdate}
-              onPress={handleSubmit}>
-              <Text style={styles.textSign}>{'SIGN IN'}</Text>
-            </TouchableOpacity>
+            {isValid ? (
+              <EnabledButton
+                label={STRINGS.TEXTLABLE.SIGN_IN}
+                onPress={() => Alert.alert('signed in')}
+              />
+            ) : (
+              <DisabledButton label={STRINGS.TEXTLABLE.SIGN_UP} />
+            )}
             <View style={styles.orView}>
               <View style={styles.orStart}></View>
-              <Text style={styles.orText}>{'OR'}</Text>
+              <Text style={styles.orText}>{STRINGS.TEXTLABLE.OR}</Text>
               <View style={styles.orEnd}></View>
             </View>
-            <TouchableOpacity onPress={()=>onGoogleButtonPress()} style={styles.google}>
-              <Image
-                style={styles.googleImage}
-                source={require('../../assets/images/google.png')}
-              />
-              <Text style={styles.naming}>{'Continue with Google'}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.google}>
-              <Image
-                style={styles.googleImage}
-                source={require('../../assets/images/apple.png')}
-              />
-              <Text style={styles.naming}>{'Continue with Apple'}</Text>
-            </TouchableOpacity>
-
+            <GoogleCustomButton />
             <View style={styles.newUser}>
-              <Text style={styles.new}>{"I'm a new user"}</Text>
+              <Text style={styles.new}>{STRINGS.TEXTLABLE.NEW_USER}</Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('SignUp');
                 }}>
-                <Text style={styles.signUp}>{'Sign Up'}</Text>
+                <Text style={styles.signUp}>{STRINGS.TEXTLABLE.SIGN_UP}</Text>
               </TouchableOpacity>
-             
             </View>
           </View>
         </View>
@@ -159,7 +127,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   mainView: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: COLOR.BLACK,
     paddingHorizontal: 20,
   },
   textView: {
@@ -167,154 +135,61 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   using: {
-    color: '#ffffff',
+    color: COLOR.WHITE,
     fontWeight: '400',
     fontSize: 24,
-    // lineHeight: 35,
     fontStyle: 'normal',
     fontFamily: 'HelveticaNeue-CondensedBold',
-    // width: 278,
     top: 100,
-    // left: 24,
-  },
-  textInput: {
-    // margin: 10,
-    marginHorizontal:10,
-    height: 48,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
-    color: '#44C2E3',
-    padding: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
   },
   passwordVeiw: {
-    flexDirection: 'row',
-    borderColor: '#ffffff',
-    borderWidth: 1,
-    width: 327,
-    alignItems: 'center',
-    height: 48,
-    borderRadius: 5,
-    alignSelf: 'center',
-    marginTop:10
-    
-  },
-  passwordText: {
-    marginLeft: 0,
-    // left: 0,
-    width: 280,
-    borderWidth: 0,
-    margin: 10,
-    height: 48,
-    borderRadius: 5,
-    borderColor: '#FFFFFF',
-    color: '#44C2E3',
-    padding: 16,
-    paddingTop: 12,
-    paddingBottom: 12,
+    justifyContent: 'space-between',
   },
   forget: {
-    color: '#44C2E3',
+    color: COLOR.LIGHT_BLUE,
     alignSelf: 'flex-end',
   },
-  eye: {
+  eyeClose: {
     height: 20,
     width: 20,
     resizeMode: 'contain',
+    position: 'absolute',
+    right: 28,
+    bottom: 16,
   },
-  eyeNew: {
+  eyeOpen: {
     height: 20,
     width: 20,
     resizeMode: 'contain',
+    position: 'absolute',
+    right: 28,
+    bottom: 16,
   },
-  button: {
-    width: 328,
-    height: 48,
-    backgroundColor: '#44C2E3',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    top: 20,
-    // left: 18,
-  },
-  buttonUpdate: {
-    width: 328,
-    height: 48,
-    backgroundColor: '#282828',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    top: 20,
-  },
-  textSign: {
-    color: '#595959',
-    fontSize: 16,
-    fontWeight: '400',
-    alignSelf: 'center',
-    lineHeight: 15,
-    textTransform: 'uppercase',
-  },
-  alertMail: {
-    paddingTop:10,
-    paddingLeft:10,
+  alert: {
     fontSize: 12,
-    color: 'red', 
-  },
-  alertPassword:{
-    fontSize: 12,
-    color: 'red',
-    marginHorizontal:2,
-    padding:8
-
+    color: COLOR.RED,
   },
   orView: {
     alignSelf: 'center',
-    marginVertical: 50,
+    marginTop: 50,
     alignItems: 'center',
     flexDirection: 'row',
   },
   orText: {
-    color: '#595959',
+    color: COLOR.LIGHT_GREY,
     fontSize: 14,
     fontWeight: '700',
     lineHeight: 16,
   },
   orStart: {
     borderBottomWidth: 1,
-    borderBottomColor: 'grey',
+    borderBottomColor: COLOR.LIGHT_GREY,
     width: 150,
   },
   orEnd: {
     borderBottomWidth: 1,
-    borderBottomColor: 'grey',
+    borderBottomColor: COLOR.LIGHT_GREY,
     width: 150,
-  },
-  googleTouch: {
-    borderWidth: 1,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    width: 200,
-    borderRadius: 30,
-    borderColor: '#55c56d',
-  },
-  google: {
-    height: 48,
-    width: 325,
-    backgroundColor: 'white',
-    margin: 20,
-    flexDirection: 'row',
-    padding: 15,
-    justifyContent: 'center',
-    borderRadius: 5,
-  },
-  googleImage: {
-    height: 20,
-    width: 20,
-    marginRight: 10,
   },
   naming: {
     fontSize: 18,
@@ -322,16 +197,11 @@ const styles = StyleSheet.create({
   newUser: {
     flexDirection: 'row',
     alignSelf: 'center',
+    marginTop: 20,
   },
-  new: {color: 'white', fontSize: 14, fontWeight: '500'},
+  new: {color: COLOR.WHITE, fontSize: 14, fontWeight: '500'},
   signUp: {
-    color: '#44C2E3',
-    left: 9,
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  signUpUpdate: {
-    color: 'red',
+    color: COLOR.PRIMARY_BLUE,
     left: 9,
     fontSize: 14,
     fontWeight: '500',

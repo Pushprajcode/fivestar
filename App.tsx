@@ -6,7 +6,7 @@ import {store} from './src/redux/reducer/store';
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationScreen />
+      <NavigationScreen/>
     </Provider>
   );
 };

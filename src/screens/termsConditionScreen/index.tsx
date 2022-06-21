@@ -1,15 +1,12 @@
-import { StyleSheet, Text, View,SafeAreaView,Image,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View,SafeAreaView,} from 'react-native'
 import React from 'react'
+import CustomBackButton from '../../components/customBackButton'
 
 export default function TermsScreen() {
   return (
       <SafeAreaView style={{flex:1,backgroundColor:"black"}}>
           <View style={styles.termsUse}>
-              <TouchableOpacity>
-          <Image 
-            style={styles.image}
-           source={require('../../assets/images/VectorBack.png')}/>
-           </TouchableOpacity>
+             <CustomBackButton/>
 
           <Text style={{color:'#ffffff',fontWeight:'400',fontSize:24,marginHorizontal:19}}>{'Terms of use'}</Text>
           </View>
@@ -30,7 +27,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         // borderWidth:2,
         // borderColor:'red',
-        marginLeft:25
+       // marginLeft:25
 
        
         

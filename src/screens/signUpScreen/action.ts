@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SingUpApiCall = (values: {
+const singUpApiCall = (values: {
   name: string;
   phoneNo: number;
   email: string;
@@ -21,7 +21,7 @@ const SingUpApiCall = (values: {
       },
     })
       .then(resp => {
-        dispatch({type:'SET_USERID', payload: resp.data.data});
+        dispatch({type: 'SET_USERID', payload: resp.data.data});
         console.log('response', resp);
       })
       .catch(err => {
@@ -30,4 +30,4 @@ const SingUpApiCall = (values: {
   };
 };
 
-export default SingUpApiCall;
+export default singUpApiCall;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 export default function OtpAction(str: any) {
   console.log('firstactionkadata', str);
   return (getState: any) => {
