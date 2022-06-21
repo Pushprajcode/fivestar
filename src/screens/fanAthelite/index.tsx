@@ -9,50 +9,35 @@ import {
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import CustomBackButton from '../../components/customBackButton';
+import STRINGS from '../../utils/strings';
+import IMAGES from '../../utils/localImages';
 
 export default function FanAthelite() {
   const navigation = useNavigation();
   return (
     <SafeAreaView
-      style={{borderWidth: 2, backgroundColor: 'black', flex: 1, top: 30}}>
+      style={styles.safeAreaView}>
       <View>
-        <TouchableOpacity>
-          <Image
-            style={{height: 19.5, width: 11.92}}
-            source={require('../../assets/images/VectorBack.png')}
-          />
-        </TouchableOpacity>
+       <CustomBackButton/>
 
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 24,
-            fontWeight: '400',
-            lineHeight: 32,
-          }}>
-          {'Who are you?'}
+        <Text style={styles.text}> 
+          {STRINGS.TEXTLABLE.WHO_ARE_TEXT}
         </Text>
         <TouchableOpacity style={{flexDirection: 'row'}}>
           <ImageBackground
-            style={{height: 104, width: 327, marginHorizontal: 24}}
-            source={require('../../assets/images/fan.png')}
+            style={styles.fanImage}
+            source={IMAGES.FAN_IMAGE}
           />
           <Text
-            style={{
-              fontWeight: '900',
-              fontSize: 24,
-              color: 'white',
-              alignSelf: 'center',
-              right: 160,
-              fontStyle: 'italic',
-            }}>
-            {'FAN'}
+            style={styles.fanText}>
+            {STRINGS.TEXTLABLE.FAN_TEXT}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <ImageBackground
             style={{height: 104, width: 327, marginHorizontal: 24}}
-            source={require('../../assets/images/player.png')}
+            source={IMAGES.PLAYER_IMAGE}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -68,6 +53,38 @@ export default function FanAthelite() {
 }
 
 const styles = StyleSheet.create({
+  safeAreaView:{
+   
+
+  },
+
+
+
+
+
+
+
+
+  text:{
+      color: 'white',
+      fontSize: 24,
+      fontWeight: '400',
+      lineHeight: 32,
+  },
+  fanImage:{
+    height: 104, width: 327, marginHorizontal: 24
+
+  },
+  fanText:{
+    
+      fontWeight: '900',
+      fontSize: 24,
+      color: 'white',
+      alignSelf: 'center',
+      right: 160,
+      fontStyle: 'italic',
+
+  },
   button: {
     width: 328,
     height: 48,

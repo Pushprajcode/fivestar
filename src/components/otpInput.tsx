@@ -1,5 +1,6 @@
 import {StyleSheet, TextInput} from 'react-native';
 import React from 'react';
+import COLOR from '../utils/colors';
 export default function OtpInput(props: any) {
   const {callBack} = props;
   return (
@@ -15,7 +16,7 @@ export default function OtpInput(props: any) {
 }
 const styles = StyleSheet.create({
   OtpBoxStyl: {
-    backgroundColor: 'white',
+    backgroundColor: COLOR.WHITE,
     height: 48,
     width: 64,
     paddingHorizontal: 25,

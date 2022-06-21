@@ -1,6 +1,12 @@
 const COLOR = {
-  White: '#FFFFFF',
-  Red: '#FF6258',
-  Black: '#000000',
+  WHITE: '#FFFFFF',
+  RED: '#FF6258',
+  BLACK: '#000000',
+  LIGHT_BLUE:'#44C2E3',
+  DARK_GREY:'#595959',
+  GREY:"#282828",
+  LIGHT_GREY:'#595959',
+  PRIMARY_BLUE:"#44C2E3",
+ 
 };
 export default COLOR;
