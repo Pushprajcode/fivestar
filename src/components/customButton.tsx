@@ -4,7 +4,7 @@ import COLOR from '../utils/colors';
 
 export function EnabledButton(props: any) {
   const {label, onPress} = props;
-  console.log('lablemekya ayaa', props);
+  //console.log('lablemekya ayaa', props);
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.buttonEnable}>

@@ -6,7 +6,8 @@ const IMAGES={
       BACK_IMAGE:require('../assets/images/VectorBack.png'),
       CHECKBOX_IMAGE:require('../assets/images/checkbox.png'),
       FAN_IMAGE:require('../assets/images/fan.png'),
-      PLAYER_IMAGE:require('../assets/images/player.png')
+      PLAYER_IMAGE:require('../assets/images/player.png'),
+      RIGHT_THUMB:require('../assets/images/rightthumb.png')
     
       
 }

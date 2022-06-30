@@ -3,14 +3,15 @@ import React from 'react';
 import IMAGES from '../utils/localImages';
 import {useNavigation} from '@react-navigation/native';
 
-export default function CustomBackButton() {
+export default function CustomBackButton({style}) {
+
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.goBack();
       }}>
-      <Image style={styles.backImage} source={IMAGES.BACK_IMAGE} />
+      <Image style={[styles.backImage, style]} source={IMAGES.BACK_IMAGE} />
     </TouchableOpacity>
   );
 }

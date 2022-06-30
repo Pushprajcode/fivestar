@@ -61,7 +61,7 @@ const SignUp = () => {
         handleBlur,
       }) => (
         <SafeAreaView style={styles.mainView}>
-          <CustomBackButton />
+          <CustomBackButton/>
           <View style={styles.textinputView}>
             <Text style={styles.createText}>
               {STRINGS.TEXTLABLE.CREATE_ACCOUNT}

@@ -24,6 +24,10 @@ const STRINGS = {
     APPLE_BUTTON_TEXT: "'Continue with Apple'",
      WHO_ARE_TEXT:'Who are you?',
      FAN_TEXT:'FAN',
+     RESEND_VERIFICATION:"Resend Verification Code",
+     ENTER_VERIFICATION:"Enter Verification Code",
+     RECIEVED:'Didnt Received the Code yet? '
+
 
   },
 };

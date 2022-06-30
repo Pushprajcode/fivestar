@@ -10,6 +10,7 @@ import CongratulationScreen from '../screens/congratulationScreen';
 import TermsScreen from '../screens/termsConditionScreen';
 import FanAthelite from '../screens/fanAthelite';
 import CompleteProfile from '../screens/profileScreen';
+import ModalScreen from '../components/modal';
 
 const stack = createNativeStackNavigator();
 const NavigationScreen = () => {
@@ -35,6 +36,7 @@ const NavigationScreen = () => {
         <stack.Screen name="TermsScreen" component={TermsScreen} />
         <stack.Screen name="FanAthelite" component={FanAthelite} />
         <stack.Screen name="CompleteProfile" component={CompleteProfile} />
+        <stack.Screen name="ModalScreen"  component={ModalScreen}/>
       </stack.Navigator>
     </NavigationContainer>
   );
