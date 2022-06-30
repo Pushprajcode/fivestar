@@ -7,7 +7,9 @@ const IMAGES={
       CHECKBOX_IMAGE:require('../assets/images/checkbox.png'),
       FAN_IMAGE:require('../assets/images/fan.png'),
       PLAYER_IMAGE:require('../assets/images/player.png'),
-      RIGHT_THUMB:require('../assets/images/rightthumb.png')
+      RIGHT_THUMB:require('../assets/images/rightthumb.png'),
+      COVER_IMAGE:require('../assets/images/Cover.png'),
+      GROUP_IMAGE:require('../assets/images/group.png')
     
       
 }

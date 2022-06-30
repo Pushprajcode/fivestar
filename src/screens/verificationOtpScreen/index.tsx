@@ -7,99 +7,91 @@ import {
   Image,
   TextInput,
 } from 'react-native';
-import React, { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import OtpAction from './action';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState, useRef} from 'react';
+
+import {useNavigation} from '@react-navigation/native';
 import COLOR from '../../utils/colors';
 import CustomBackButton from '../../components/customBackButton';
 import STRINGS from '../../utils/strings';
-import { normalize } from '../../utils/dimension';
+import {normalize} from '../../utils/dimension';
 import ModalScreen from '../../components/modal';
+import {DisabledButton, EnabledButton} from '../../components/customButton';
 export default function VerificationOtpScreen() {
-  const navigation = useNavigation();
-  //const phoneNo =useSelector((store:any)=>store.signUpReducer)
+  const navigation = useNavigation<any>();
 
   const pin1 = useRef<any>(null);
   const pin2 = useRef<any>(null);
   const pin3 = useRef<any>(null);
   const pin4 = useRef<any>(null);
-  const [otp, setOtp] = useState('')
+  const [otp, setOtp] = useState('');
   const arr = [pin1, pin2, pin3, pin4];
-  // const dispatch = useDispatch();
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const Ref = useRef<any>(null);
+  const onpressModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <SafeAreaView style={styles.safeAreastyle}>
-      <View style={styles.mainViewStyle}>
+      <View>
         <CustomBackButton style={styles.backImageStyle} />
-
+        {isModalVisible && <ModalScreen />}
         <Text style={styles.enterVerification}>
           {STRINGS.TEXTLABLE.ENTER_VERIFICATION}
         </Text>
-        <TouchableOpacity onPress={()=>navigation.navigate(ModalScreen)}>
+
         <Text style={styles.digitVerification}>
           {STRINGS.TEXTLABLE.CODE_SENT}
-          {/* <Text>{phoneNo}</Text> */}
         </Text>
-        </TouchableOpacity>
 
         <TouchableOpacity>
           <Text>{'Edit'}</Text>
         </TouchableOpacity>
 
-
         <View style={styles.otpViewStyle}>
-              <TextInput
-                ref={pin1}
-                maxLength={1}
-                onChangeText={text => {
-                  setOtp(otp => otp + text);
-                  pin2.current.focus()
-                }}
-                style={styles.textInput}
-              />
-              <TextInput
-                ref={pin2}
-                maxLength={1}
-                onChangeText={text => {
-                  setOtp(otp => otp + text);
-                  pin3.current.focus();
-                }}
-                style={styles.textInput}
-              />
-              <TextInput
-                ref={pin3}
-                maxLength={1}
-                onChangeText={text => {
-                  setOtp(otp => otp + text);
-                  pin4.current.focus();
-                }}
-                style={styles.textInput}
-              />
-              <TextInput
-                ref={pin4}
-                maxLength={1}
-                onChangeText={text => {
-                  setOtp(otp => otp + text);
-                  pin4.current.blur();
-                }}
-                style={styles.textInput}
-              />
-            </View>
-        <TouchableOpacity
-          onPress={() => {
-           
-            // dispatch(OtpAction(str));
-          }}
-          style={{
-            backgroundColor: '#44C2E3',
-            marginVertical: 40,
-            paddingVertical: 17,
-            alignItems: 'center',
-            borderRadius: 5,
-          }}>
-          <Text style={{ color: COLOR.WHITE }}>{'Submit'}</Text>
-        </TouchableOpacity>
+          <TextInput
+            ref={pin1}
+            maxLength={1}
+            onChangeText={text => {
+              setOtp(otp => otp + text);
+              pin2.current.focus();
+            }}
+            style={styles.textInput}
+          />
+          <TextInput
+            ref={pin2}
+            maxLength={1}
+            onChangeText={text => {
+              setOtp(otp => otp + text);
+              pin3.current.focus();
+            }}
+            style={styles.textInput}
+          />
+          <TextInput
+            ref={pin3}
+            maxLength={1}
+            onChangeText={text => {
+              setOtp(otp => otp + text);
+              pin4.current.focus();
+            }}
+            style={styles.textInput}
+          />
+          <TextInput
+            ref={pin4}
+            maxLength={1}
+            onChangeText={text => {
+              setOtp(otp => otp + text);
+              pin4.current.blur();
+            }}
+            style={styles.textInput}
+          />
+        </View>
+        {otp.length === 4 ? (
+          <EnabledButton label="submit" onPress={onpressModal} />
+        ) : (
+          <DisabledButton label="submit" />
+        )}
         <Text style={styles.ReecivedTextStyle}>
           {STRINGS.TEXTLABLE.RECIEVED}
         </Text>
@@ -125,33 +117,20 @@ export default function VerificationOtpScreen() {
     </SafeAreaView>
   );
 }
-
-//useRef(null), text1, text2
-//onChangeText input - { () => {
-//   if(text = 1)
-//   set
-//   ref.focus()
-// }}
-
 const styles = StyleSheet.create({
   safeAreastyle: {
     flex: 1,
     backgroundColor: 'black',
   },
   backImageStyle: {
-    marginLeft: normalize(25)
-
-  },
-  mainViewStyle: {
-    marginHorizontal: 5,
+    marginLeft: normalize(25),
   },
   backImage: {
     height: 20,
     width: 12,
   },
-  otpViewStyle:{
-     flexDirection:'row',
-    // marginHorizontal:24
+  otpViewStyle: {
+    flexDirection: 'row',
   },
   textinput: {
     backgroundColor: 'white',
@@ -160,7 +139,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     borderRadius: 5,
-    borderColor: '#FFFFFF'
+    borderColor: '#FFFFFF',
   },
   enterVerification: {
     color: COLOR.WHITE,
@@ -168,18 +147,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 20,
     marginHorizontal: normalize(24),
-
+    fontFamily: "'Helvetica-BlackItalic'",
   },
   digitVerification: {
     color: COLOR.WHITE,
     fontSize: 14,
-    fontWeight:"400",
+    fontWeight: '400',
     marginHorizontal: normalize(30),
-    lineHeight:normalize(16)
+    lineHeight: normalize(16),
   },
   resendVerification: {
     color: '#44C2E3',
-    alignSelf:'center'
+    alignSelf: 'center',
   },
   textInput: {
     backgroundColor: '#000000',
@@ -192,18 +171,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: COLOR.PRIMARY_BLUE,
     textAlign: 'center',
-    marginHorizontal:normalize(18)
+    marginHorizontal: normalize(18),
   },
   inpView: {
-    marginVertical:normalize(15),
+    marginVertical: normalize(15),
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  ReecivedTextStyle:{
-    color:COLOR.WHITE,
-    alignSelf:'center',
-    lineHeight:normalize(30)
-    
-  }
-
+  ReecivedTextStyle: {
+    color: COLOR.WHITE,
+    alignSelf: 'center',
+    lineHeight: normalize(30),
+    marginTop: normalize(30),
+  },
 });

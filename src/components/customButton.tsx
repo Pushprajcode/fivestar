@@ -3,10 +3,10 @@ import React from 'react';
 import COLOR from '../utils/colors';
 
 export function EnabledButton(props: any) {
-  const {label, onPress} = props;
-  //console.log('lablemekya ayaa', props);
+  const {label, onPress, style} = props;
+  console.log('lablemekya ayaa', style);
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={style} onPress={onPress}>
       <View style={styles.buttonEnable}>
         <Text style={styles.textSign}>{label}</Text>
       </View>
@@ -15,7 +15,8 @@ export function EnabledButton(props: any) {
 }
 
 export function DisabledButton(props: any) {
-  const {label} = props;
+  const {label, style} = props;
+
   return (
     <View style={styles.buttonDisable}>
       <Text style={styles.textSign}>{label}</Text>
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     top: 20,
   },
   textSign: {
-    color: COLOR.LIGHT_GREY,
+    color: 'white',
     fontSize: 16,
     fontWeight: '400',
     alignSelf: 'center',

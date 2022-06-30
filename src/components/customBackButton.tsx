@@ -4,7 +4,6 @@ import IMAGES from '../utils/localImages';
 import {useNavigation} from '@react-navigation/native';
 
 export default function CustomBackButton({style}) {
-
   const navigation = useNavigation();
   return (
     <TouchableOpacity

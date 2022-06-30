@@ -26,7 +26,9 @@ const STRINGS = {
      FAN_TEXT:'FAN',
      RESEND_VERIFICATION:"Resend Verification Code",
      ENTER_VERIFICATION:"Enter Verification Code",
-     RECIEVED:'Didnt Received the Code yet? '
+     RECIEVED:'Didnt Received the Code yet? ',
+     JOHN:'Hi John !',
+     ABOUT_YOU:'Tell us about yourself'
 
 
   },

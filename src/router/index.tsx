@@ -9,7 +9,7 @@ import VerificationOtpScreen from '../screens/verificationOtpScreen';
 import CongratulationScreen from '../screens/congratulationScreen';
 import TermsScreen from '../screens/termsConditionScreen';
 import FanAthelite from '../screens/fanAthelite';
-import CompleteProfile from '../screens/profileScreen';
+import EditProfile from '../screens/editProfileScreen';
 import ModalScreen from '../components/modal';
 
 const stack = createNativeStackNavigator();
@@ -35,7 +35,7 @@ const NavigationScreen = () => {
         />
         <stack.Screen name="TermsScreen" component={TermsScreen} />
         <stack.Screen name="FanAthelite" component={FanAthelite} />
-        <stack.Screen name="CompleteProfile" component={CompleteProfile} />
+        <stack.Screen name="EditProfile" component={EditProfile} />
         <stack.Screen name="ModalScreen"  component={ModalScreen}/>
       </stack.Navigator>
     </NavigationContainer>

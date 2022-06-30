@@ -193,8 +193,6 @@ const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     backgroundColor: COLOR.BLACK,
-    // borderColor: 'red',
-    // borderWidth: 3,
   },
   textinputView: {
     marginHorizontal: 15,
@@ -206,7 +204,7 @@ const styles = StyleSheet.create({
     color: COLOR.WHITE,
     fontWeight: '900',
     fontSize: 26,
-    fontStyle: 'italic',
+   fontStyle: 'italic',
     lineHeight: 24,
   },
   getStartText: {
