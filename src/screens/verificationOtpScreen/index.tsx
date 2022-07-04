@@ -13,9 +13,10 @@ import {useNavigation} from '@react-navigation/native';
 import COLOR from '../../utils/colors';
 import CustomBackButton from '../../components/customBackButton';
 import STRINGS from '../../utils/strings';
-import {normalize} from '../../utils/dimension';
+import {normalize, vh, vw} from '../../utils/dimension';
 import ModalScreen from '../../components/modal';
 import {DisabledButton, EnabledButton} from '../../components/customButton';
+import {useSelector} from 'react-redux';
 export default function VerificationOtpScreen() {
   const navigation = useNavigation<any>();
 
@@ -88,9 +89,13 @@ export default function VerificationOtpScreen() {
           />
         </View>
         {otp.length === 4 ? (
-          <EnabledButton label="submit" onPress={onpressModal} />
+          <EnabledButton
+            label="submit"
+            onPress={onpressModal}
+            style={styles.buttonStyle}
+          />
         ) : (
-          <DisabledButton label="submit" />
+          <DisabledButton label="submit" style={styles.buttonStyle} />
         )}
         <Text style={styles.ReecivedTextStyle}>
           {STRINGS.TEXTLABLE.RECIEVED}
@@ -131,15 +136,7 @@ const styles = StyleSheet.create({
   },
   otpViewStyle: {
     flexDirection: 'row',
-  },
-  textinput: {
-    backgroundColor: 'white',
-    height: 48,
-    width: 64,
-    alignItems: 'center',
-    marginHorizontal: 20,
-    borderRadius: 5,
-    borderColor: '#FFFFFF',
+    flex: 0.26,
   },
   enterVerification: {
     color: COLOR.WHITE,
@@ -147,7 +144,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 20,
     marginHorizontal: normalize(24),
-    fontFamily: "'Helvetica-BlackItalic'",
   },
   digitVerification: {
     color: COLOR.WHITE,
@@ -157,21 +153,24 @@ const styles = StyleSheet.create({
     lineHeight: normalize(16),
   },
   resendVerification: {
-    color: '#44C2E3',
+    color: COLOR.LIGHT_BLUE,
     alignSelf: 'center',
   },
   textInput: {
-    backgroundColor: '#000000',
-    height: 50,
-    width: 65,
+    backgroundColor: COLOR.BLACK,
+    height: vh(50),
+    width: vw(65),
     fontWeight: '900',
     fontSize: 30,
     borderRadius: 5,
-    borderColor: '#ffffff',
+    borderColor: COLOR.WHITE,
     borderWidth: 1,
     color: COLOR.PRIMARY_BLUE,
     textAlign: 'center',
-    marginHorizontal: normalize(18),
+    marginLeft: normalize(24),
+  },
+  buttonStyle: {
+    marginTop: normalize(90),
   },
   inpView: {
     marginVertical: normalize(15),

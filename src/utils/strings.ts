@@ -21,14 +21,20 @@ const STRINGS = {
     AGREE: 'I agree to the ',
     TERMS_OF: 'Terms of Use* ',
     GOOGLE_BUTTON_TEXT: 'Continue with Google',
+    CONGRATULATION:'Congratulations',
     APPLE_BUTTON_TEXT: "'Continue with Apple'",
      WHO_ARE_TEXT:'Who are you?',
+     YOUR_ACCOUNT:'Your account has been successfully',
+     REGISTER:'registered',
      FAN_TEXT:'FAN',
+     ATHLETE_TEXT:'ATHLETE',
      RESEND_VERIFICATION:"Resend Verification Code",
      ENTER_VERIFICATION:"Enter Verification Code",
      RECIEVED:'Didnt Received the Code yet? ',
      JOHN:'Hi John !',
-     ABOUT_YOU:'Tell us about yourself'
+     ABOUT_YOU:'Tell us about yourself',
+     SELECT_IDENTITY:'Select your identity',
+
 
 
   },

@@ -16,6 +16,7 @@ import {DisabledButton, EnabledButton} from '../../components/customButton';
 import STRINGS from '../../utils/strings';
 import IMAGES from '../../utils/localImages';
 import COLOR from '../../utils/colors';
+import {vh, vw} from '../../utils/dimension';
 
 function LoginScreen() {
   const navigation = useNavigation<any>();
@@ -80,9 +81,15 @@ function LoginScreen() {
                   setFieldValue('hidePassword', !values.hidePassword);
                 }}>
                 {values.hidePassword ? (
-                  <Image style={styles.eyeClose} source={IMAGES.EYE_CLOSE_IMAGE} />
+                  <Image
+                    style={styles.eyeClose}
+                    source={IMAGES.EYE_CLOSE_IMAGE}
+                  />
                 ) : (
-                  <Image style={styles.eyeOpen} source={IMAGES.EYE_OPEN_IMAGE} />
+                  <Image
+                    style={styles.eyeOpen}
+                    source={IMAGES.EYE_OPEN_IMAGE}
+                  />
                 )}
               </TouchableOpacity>
             </View>
@@ -94,7 +101,7 @@ function LoginScreen() {
                 {STRINGS.TEXTLABLE.FOGET_PASSWORD}
               </Text>
             </TouchableOpacity>
-            {isValid ? (
+            {isValid && values.email != '' && values.password != '' ? (
               <EnabledButton
                 label={STRINGS.TEXTLABLE.SIGN_IN}
                 onPress={() => Alert.alert('signed in')}
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   textView: {
-    marginTop: 130,
+    marginTop: 110,
     width: '100%',
   },
   using: {
@@ -141,6 +148,8 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontFamily: 'HelveticaNeue-CondensedBold',
     top: 100,
+    width: vw(281),
+    height: vh(80),
   },
   passwordVeiw: {
     justifyContent: 'space-between',
@@ -171,7 +180,7 @@ const styles = StyleSheet.create({
   },
   orView: {
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: 20,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -179,7 +188,7 @@ const styles = StyleSheet.create({
     color: COLOR.LIGHT_GREY,
     fontSize: 14,
     fontWeight: '700',
-    lineHeight: 16,
+    lineHeight: 20,
   },
   orStart: {
     borderBottomWidth: 1,

@@ -3,11 +3,11 @@ import React from 'react';
 import COLOR from '../utils/colors';
 
 export function EnabledButton(props: any) {
-  const {label, onPress, style} = props;
-  console.log('lablemekya ayaa', style);
+  const {label, onPress, style,disabled} = props;
   return (
-    <TouchableOpacity style={style} onPress={onPress}>
-      <View style={styles.buttonEnable}>
+    <TouchableOpacity disabled={disabled}
+     onPress={onPress}>
+      <View style={[styles.buttonEnable,style]}>
         <Text style={styles.textSign}>{label}</Text>
       </View>
     </TouchableOpacity>
@@ -18,7 +18,7 @@ export function DisabledButton(props: any) {
   const {label, style} = props;
 
   return (
-    <View style={styles.buttonDisable}>
+    <View style={[styles.buttonDisable, style]}>
       <Text style={styles.textSign}>{label}</Text>
     </View>
   );
@@ -31,8 +31,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    top: 20,
-    backgroundColor: COLOR.PRIMARY_BLUE,
+    backgroundColor: COLOR.LIGHT_BLUE,
   },
   buttonDisable: {
     width: 358,
@@ -41,10 +40,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 5,
-    top: 20,
+
   },
   textSign: {
-    color: 'white',
+    color: COLOR.BLACK,
     fontSize: 16,
     fontWeight: '400',
     alignSelf: 'center',

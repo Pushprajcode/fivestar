@@ -21,7 +21,6 @@ const singUpApiCall = (values: {
       },
     })
       .then(resp => {
-       // dispatch({type: 'SET_USERID', payload: resp.data.data});
         console.log('response', resp);
       })
       .catch(err => {

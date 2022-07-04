@@ -7,6 +7,10 @@ const COLOR = {
   GREY:"#282828",
   LIGHT_GREY:'#595959',
   PRIMARY_BLUE:"#44C2E3",
- 
+  LIGHT_BLACK:'#1E1B1B',
+  BLUE_MAGNETA:'#1A1A1B',
+  SUMMER_SKY:'#39C0E0'
+
+
 };
 export default COLOR;

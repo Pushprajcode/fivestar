@@ -8,8 +8,15 @@ const IMAGES={
       FAN_IMAGE:require('../assets/images/fan.png'),
       PLAYER_IMAGE:require('../assets/images/player.png'),
       RIGHT_THUMB:require('../assets/images/rightthumb.png'),
-      COVER_IMAGE:require('../assets/images/Cover.png'),
-      GROUP_IMAGE:require('../assets/images/group.png')
+      COVER_IMAGE:require('../assets/images/newcover.png'),
+      GROUP_IMAGE:require('../assets/images/group.png'),
+      RIGHT_CONGRATULATION:require('../assets/images/rightthumb.png'),
+      CAMERA:require('../assets/images/camera.png'),
+      DATE:require('../assets/images/date.png'),
+      RIGHT:require('../assets/images/rightvector.png'),
+      CROSS_IMAGE:require('../assets/images/crossimage.png')
+      
+
     
       
 }

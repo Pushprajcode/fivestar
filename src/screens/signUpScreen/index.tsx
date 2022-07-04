@@ -20,6 +20,7 @@ import GoogleCustomButton from '../../components/customSocialButton';
 import {DisabledButton, EnabledButton} from '../../components/customButton';
 import CustomTextInput from '../../components/customTextInput';
 import CustomBackButton from '../../components/customBackButton';
+import {normalize, vh, vw} from '../../utils/dimension';
 
 const SignUp = () => {
   const navigation = useNavigation<any>();
@@ -44,10 +45,12 @@ const SignUp = () => {
         name: yup.string().required(STRINGS.TEXTLABLE.FULL_NAME),
         phoneNo: yup.number().required(STRINGS.TEXTLABLE.MOBILE_NUMBER),
         email: yup.string().email().required(STRINGS.TEXTLABLE.MAIL_MESSAGE),
-        password: yup.string() .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          STRINGS.TEXTLABLE.PASSWORD,
-        ),
+        password: yup
+          .string()
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+            STRINGS.TEXTLABLE.PASSWORD,
+          ),
         acceptTerms: yup.boolean().equals([true], STRINGS.TEXTLABLE.TERM),
       })}>
       {({
@@ -61,7 +64,7 @@ const SignUp = () => {
         handleBlur,
       }) => (
         <SafeAreaView style={styles.mainView}>
-          <CustomBackButton/>
+          <CustomBackButton style />
           <View style={styles.textinputView}>
             <Text style={styles.createText}>
               {STRINGS.TEXTLABLE.CREATE_ACCOUNT}
@@ -100,21 +103,21 @@ const SignUp = () => {
             <CustomTextInput
               label="Password*"
               value={values.password}
-              secureTextEntry={values.hidePassword?true : false}
+              secureTextEntry={values.hidePassword ? true : false}
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
             />
-              <TouchableOpacity
-                style={{top: 18}}
-                onPress={() => {
-                  setFieldValue('hidePassword', !values.hidePassword);
-                }}>
-                {values.hidePassword ? (
-                  <Image style={styles.eye} source={IMAGES.EYE_CLOSE_IMAGE} />
-                ) : (
-                  <Image style={styles.eye} source={IMAGES.EYE_OPEN_IMAGE} />
-                )}
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.eyeView}
+              onPress={() => {
+                setFieldValue('hidePassword', !values.hidePassword);
+              }}>
+              {values.hidePassword ? (
+                <Image style={styles.eye} source={IMAGES.EYE_CLOSE_IMAGE} />
+              ) : (
+                <Image style={styles.eye} source={IMAGES.EYE_OPEN_IMAGE} />
+              )}
+            </TouchableOpacity>
 
             {touched.password && errors.password && (
               <Text style={styles.alert}>{errors.password}</Text>
@@ -150,7 +153,11 @@ const SignUp = () => {
               </View>
             </View>
             <View style={{marginVertical: 28}}>
-              {isValid ? (
+              {isValid &&
+              values.name != '' &&
+              values.phoneNo != '' &&
+              values.email != '' &&
+              values.password != '' ? (
                 <EnabledButton
                   label={STRINGS.TEXTLABLE.CREATE_ACCOUNT}
                   handleSubmit={handleSubmit}
@@ -204,7 +211,6 @@ const styles = StyleSheet.create({
     color: COLOR.WHITE,
     fontWeight: '900',
     fontSize: 26,
-   fontStyle: 'italic',
     lineHeight: 24,
   },
   getStartText: {
@@ -228,9 +234,12 @@ const styles = StyleSheet.create({
   use: {
     color: COLOR.LIGHT_BLUE,
   },
+  eyeView: {
+    top: normalize(18),
+  },
   eye: {
-    height: 20,
-    width: 20,
+    height: vh(20),
+    width: vw(20),
     resizeMode: 'contain',
     position: 'absolute',
     right: 30,
@@ -272,7 +281,7 @@ const styles = StyleSheet.create({
   },
   signIn: {
     color: '#44C2E3',
-    left: 9,
+    left: normalize(9),
     fontSize: 14,
     fontWeight: '500',
   },
