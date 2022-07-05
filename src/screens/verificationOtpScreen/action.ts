@@ -1,30 +1,28 @@
 import axios from 'axios';
 
-export default function OtpAction(otp: any, countryCode:string,
-phoneNo:number,
-userId:string) {
+export default function OtpAction(
+  otp: any,
+  countryCode: string,
+  phoneNo: number,
+  userId: string,
+) {
   console.log('firstactionkadata', otp);
-  // return () => {
-    console.log('api is called');
 
-    axios({
-      method: 'post',
-      url: 'https://fivestardevapi.appskeeper.in/api/v1/user/verify-only-otp',
-      data: {
-         userId:userId,
-         otp:otp,
-         countryCode:countryCode ,
-        phoneNo:phoneNo,
-      },
+  console.log('api is called');
+
+  axios({
+    method: 'post',
+    url: 'https://fivestardevapi.appskeeper.in/api/v1/user/verify-only-otp',
+    data: {
+      userId: userId,
+      otp: otp,
+      countryCode: countryCode,
+      phoneNo: phoneNo,
+    },
+  })
+    .then(resp => {
+      return console.log('responseOTP', resp);
     })
-      
-      .then(resp => {
-        return(
-        console.log('responseOTP', resp)
-        )
-      }
-        )
-      
-      .catch(error => console.log('error for otp', error));
-  };
-//}
+
+    .catch(error => console.log('error for otp', error));
+}

@@ -99,7 +99,7 @@ export default function VerificationOtpScreen() {
             label="submit"
             onPress={() => {
               dispatch(OtpAction(otp, countryCode, phoneNo, userId))
-              
+               
 
               // onpressModal
             }}
