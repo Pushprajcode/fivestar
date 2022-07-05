@@ -36,10 +36,12 @@ const SignUp = () => {
         hidePassword: true,
       }}
       onSubmit={(values: any, {resetForm}) => {
-        Alert.alert('Successfully submitted');
-        dispatch(SingUpApiCall(values));
+            console.log('jgkhlsdafg')
+       Alert.alert('Successfully submitted');
+       dispatch(SingUpApiCall(values));
         navigation.navigate('VerificationOtpScreen');
-        resetForm();
+       resetForm();
+       console.log('jgkhlsdafg')
       }}
       validationSchema={yup.object().shape({
         name: yup.string().required(STRINGS.TEXTLABLE.FULL_NAME),
@@ -160,10 +162,8 @@ const SignUp = () => {
               values.password != '' ? (
                 <EnabledButton
                   label={STRINGS.TEXTLABLE.CREATE_ACCOUNT}
-                  handleSubmit={handleSubmit}
-                  onPress={() => {
-                    navigation.navigate('VerificationOtpScreen');
-                  }}
+                 // handleSubmit={handleSubmit}
+                  onPress={handleSubmit}
                 />
               ) : (
                 <DisabledButton label={STRINGS.TEXTLABLE.CREATE_ACCOUNT} />

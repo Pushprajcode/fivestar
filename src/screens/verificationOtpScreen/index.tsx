@@ -16,8 +16,13 @@ import STRINGS from '../../utils/strings';
 import {normalize, vh, vw} from '../../utils/dimension';
 import ModalScreen from '../../components/modal';
 import {DisabledButton, EnabledButton} from '../../components/customButton';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import OtpAction from './action';
+import {store} from '../../redux/reducer/store';
 export default function VerificationOtpScreen() {
+  const {countryCode, phoneNo, userId} = useSelector(
+    state => state.signUpReducer,
+  );
   const navigation = useNavigation<any>();
 
   const pin1 = useRef<any>(null);
@@ -27,6 +32,7 @@ export default function VerificationOtpScreen() {
   const [otp, setOtp] = useState('');
   const arr = [pin1, pin2, pin3, pin4];
   const [isModalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const Ref = useRef<any>(null);
   const onpressModal = () => {
@@ -91,7 +97,12 @@ export default function VerificationOtpScreen() {
         {otp.length === 4 ? (
           <EnabledButton
             label="submit"
-            onPress={onpressModal}
+            onPress={() => {
+              dispatch(OtpAction(otp, countryCode, phoneNo, userId))
+              
+
+              // onpressModal
+            }}
             style={styles.buttonStyle}
           />
         ) : (

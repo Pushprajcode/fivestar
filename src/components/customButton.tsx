@@ -3,9 +3,10 @@ import React from 'react';
 import COLOR from '../utils/colors';
 
 export function EnabledButton(props: any) {
-  const {label, onPress, style,disabled} = props;
+  const {label, onPress, style,disabled,handleSubmit} = props;
   return (
-    <TouchableOpacity disabled={disabled}
+    <TouchableOpacity 
+   // disabled={disabled}
      onPress={onPress}>
       <View style={[styles.buttonEnable,style]}>
         <Text style={styles.textSign}>{label}</Text>
