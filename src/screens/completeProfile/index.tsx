@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert,
   ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
