@@ -48,7 +48,7 @@ export default function FanAthelite() {
         <TouchableOpacity
           style={styles.fanViewer}
           onPress={() => {
-            if (STRINGS.TEXTLABLE.FAN_TEXT != fan) {
+           {
               setFan(STRINGS.TEXTLABLE.ATHLETE_TEXT);
             }
           }}>

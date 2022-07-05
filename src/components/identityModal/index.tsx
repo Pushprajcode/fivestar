@@ -52,11 +52,14 @@ export default function IdentityModal(props: {
                 <Image
                   style={{
                     position: 'absolute',
-                    height: 40,
-                    width: 40,
-                    right: 0,
+                    height: 20,
+                    width:20,
+                   // right: 0,
+                    resizeMode:'contain',
+                    right:13,
+                    top:10
                   }}
-                  source={IMAGES.CROSS_IMAGE}
+                  source={IMAGES.Tick_IMAGE}
                 />
               ) : null}
 
@@ -65,7 +68,7 @@ export default function IdentityModal(props: {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            <TouchableOpacity 
               activeOpacity={0.4}
               onPress={() => {
                 setSelect(STRINGS.TEXTLABLE.ATHLETE_TEXT);
@@ -82,11 +85,12 @@ export default function IdentityModal(props: {
                 <Image
                   style={{
                     position: 'absolute',
-                    height: 40,
-                    width: 40,
-                    right: 0,
+                    height: 20,
+                    width: 20,
+                    right:13,
+                    top:37
                   }}
-                  source={IMAGES.CROSS_IMAGE}
+                  source={IMAGES.Tick_IMAGE}
                 />
               ) : null}
             </TouchableOpacity>
@@ -153,6 +157,7 @@ const styles = StyleSheet.create({
     width: vw(335),
     borderRadius: 5,
     borderWidth: normalize(1),
+    marginVertical:30,
     left: 3,
     borderColor: COLOR.PRIMARY_BLUE,
   },

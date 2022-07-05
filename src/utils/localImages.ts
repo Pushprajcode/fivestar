@@ -14,7 +14,8 @@ const IMAGES={
       CAMERA:require('../assets/images/camera.png'),
       DATE:require('../assets/images/date.png'),
       RIGHT:require('../assets/images/rightvector.png'),
-      CROSS_IMAGE:require('../assets/images/crossimage.png')
+      CROSS_IMAGE:require('../assets/images/crossimage.png'),
+      Tick_IMAGE:require('../assets/images/tick.png')
       
 
     

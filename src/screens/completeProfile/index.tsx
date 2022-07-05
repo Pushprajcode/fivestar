@@ -112,7 +112,7 @@ const EditProfile = () => {
             label="Change your Username *"
             style={styles.textInputStyle}
           />
-          {/* <InputTextcomp label="Select Your Identity *" /> */}
+
           <TouchableOpacity
             onPress={() => {
               setVisible(!visible);
