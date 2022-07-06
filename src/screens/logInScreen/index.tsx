@@ -19,6 +19,9 @@ import COLOR from '../../utils/colors';
 import {vh, vw} from '../../utils/dimension';
 
 function LoginScreen() {
+
+  // adding comment
+  // adinfgg
   const navigation = useNavigation<any>();
   return (
     <Formik
