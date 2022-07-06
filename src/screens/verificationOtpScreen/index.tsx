@@ -19,9 +19,10 @@ import {DisabledButton, EnabledButton} from '../../components/customButton';
 import {useDispatch, useSelector} from 'react-redux';
 import OtpAction from './action';
 import {store} from '../../redux/reducer/store';
+import IMAGES from '../../utils/localImages';
 export default function VerificationOtpScreen() {
   const {countryCode, phoneNo, userId} = useSelector(
-    state => state.signUpReducer,
+    (store: any) => store.signUpReducer,
   );
   const navigation = useNavigation<any>();
 
@@ -32,10 +33,11 @@ export default function VerificationOtpScreen() {
   const [otp, setOtp] = useState('');
   const arr = [pin1, pin2, pin3, pin4];
   const [isModalVisible, setModalVisible] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch: Function = useDispatch();
 
   const Ref = useRef<any>(null);
   const onpressModal = () => {
+    console.log('Inside onpress modal');
     setModalVisible(!isModalVisible);
   };
 
@@ -94,14 +96,20 @@ export default function VerificationOtpScreen() {
             style={styles.textInput}
           />
         </View>
+
         {otp.length === 4 ? (
           <EnabledButton
             label="submit"
             onPress={() => {
-              dispatch(OtpAction(otp, countryCode, phoneNo, userId))
-               
-
-              // onpressModal
+              dispatch(
+                OtpAction(otp, countryCode, phoneNo, userId, (data: any) => {
+                  console.log('fugyhkjlkm;,3245678', data.data.statusCode);
+                  if (data.data.statusCode == 200) {
+                    console.log('Inside if', data.data.statusCode);
+                    onpressModal();
+                  }
+                }),
+              );
             }}
             style={styles.buttonStyle}
           />
@@ -119,16 +127,7 @@ export default function VerificationOtpScreen() {
             {STRINGS.TEXTLABLE.RESEND_VERIFICATION}
           </Text>
         </TouchableOpacity>
-        <Image
-          style={{
-            resizeMode: 'contain',
-            width: 333,
-            height: 354,
-            bottom: 0,
-            top: 75,
-          }}
-          source={require('../../assets/images/Boxer.png')}
-        />
+        <Image style={styles.boxerImageStyle} source={IMAGES.Boxer_IMAGE} />
       </View>
     </SafeAreaView>
   );
@@ -193,5 +192,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     lineHeight: normalize(30),
     marginTop: normalize(30),
+  },
+  boxerImageStyle: {
+    resizeMode: 'contain',
+    width: 333,
+    height: 354,
+    bottom: 0,
+    top: 75,
   },
 });

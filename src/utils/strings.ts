@@ -36,9 +36,11 @@ const STRINGS = {
     RESEND_VERIFICATION: 'Resend Verification Code',
     ENTER_VERIFICATION: 'Enter Verification Code',
     RECIEVED: 'Didnt Received the Code yet? ',
+    //completeProfile
     JOHN: 'Hi John !',
     ABOUT_YOU: 'Tell us about yourself',
     SELECT_IDENTITY: 'Select your identity',
+    DOB:'DOB(MM/DD/YYYY)'
   },
 };
 export default STRINGS;

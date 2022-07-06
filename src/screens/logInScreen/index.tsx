@@ -30,7 +30,6 @@ function LoginScreen() {
       }}
       onSubmit={(values, {resetForm}) => {
         Alert.alert('Successfully submitted');
-        console.log({values});
         resetForm();
       }}
       validationSchema={yup.object().shape({
@@ -103,14 +102,18 @@ function LoginScreen() {
             </TouchableOpacity>
             {isValid && values.email != '' && values.password != '' ? (
               <EnabledButton
+                style={styles.buttonStyle}
                 label={STRINGS.TEXTLABLE.SIGN_IN}
                 onPress={() => Alert.alert('signed in')}
               />
             ) : (
-              <DisabledButton label={STRINGS.TEXTLABLE.SIGN_UP} />
+              <DisabledButton
+                style={styles.buttonStyle}
+                label={STRINGS.TEXTLABLE.SIGN_UP}
+              />
             )}
             <View style={styles.orView}>
-              <View style={styles.orStart}></View>
+              <View style={styles.orStart} />
               <Text style={styles.orText}>{STRINGS.TEXTLABLE.OR}</Text>
               <View style={styles.orEnd}></View>
             </View>
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
   forget: {
     color: COLOR.LIGHT_BLUE,
     alignSelf: 'flex-end',
+    marginRight: 10,
   },
   eyeClose: {
     height: 20,
@@ -177,6 +181,9 @@ const styles = StyleSheet.create({
   alert: {
     fontSize: 12,
     color: COLOR.RED,
+  },
+  buttonStyle: {
+    marginTop: 20,
   },
   orView: {
     alignSelf: 'center',

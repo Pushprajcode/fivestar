@@ -15,7 +15,8 @@ const IMAGES={
       DATE:require('../assets/images/date.png'),
       RIGHT:require('../assets/images/rightvector.png'),
       CROSS_IMAGE:require('../assets/images/crossimage.png'),
-      Tick_IMAGE:require('../assets/images/tick.png')
+      Tick_IMAGE:require('../assets/images/tick.png'),
+      Boxer_IMAGE:require('../assets/images/Boxer.png')
       
 
     

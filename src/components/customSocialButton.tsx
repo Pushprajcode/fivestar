@@ -4,6 +4,7 @@ import onGoogleButtonPress from '../utils/googleSignIn';
 import IMAGES from '../utils/localImages';
 import STRINGS from '../utils/strings';
 import COLOR from '../utils/colors';
+import {normalize} from '../utils/dimension';
 
 export default function CustomSocialButton() {
   return (
@@ -32,6 +33,7 @@ export default function CustomSocialButton() {
 const styles = StyleSheet.create({
   socialButtonView: {
     marginTop: 19,
+    marginHorizontal: normalize(12),
   },
   google: {
     backgroundColor: COLOR.WHITE,

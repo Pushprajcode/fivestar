@@ -4,7 +4,6 @@ import {
   LogBox,
   Image,
   Animated,
-  TouchableOpacity,
   StatusBar,
 } from 'react-native';
 
@@ -12,9 +11,6 @@ import React, {useEffect, useRef} from 'react';
 
 import {useNavigation} from '@react-navigation/native';
 LogBox.ignoreAllLogs();
-// const SplashScreen:()=>any{
-
-// }
 function SplashScreen(): any {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 

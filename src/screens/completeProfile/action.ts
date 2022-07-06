@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-export default function OtpAction(
+export default function profileAction(
   otp: any,
   countryCode: string,
   phoneNo: number,
   userId: string,
-  successResponse:Function
-
+  successResponse: Function,
 ) {
   console.log('firstactionkadata', otp);
 
@@ -14,19 +13,14 @@ export default function OtpAction(
 
   axios({
     method: 'post',
-    url: 'https://fivestardevapi.appskeeper.in/api/v1/user/verify-only-otp',
+    url:'',
     data: {
-      userId: userId,
-      otp: otp,
-      countryCode: countryCode,
-      phoneNo: phoneNo,
+
     },
   })
     .then(resp => {
-       console.log('responseOTP', resp);
-       return successResponse(resp)
-
-
+      console.log('responseprofile', resp);
+      successResponse(resp);
     })
 
     .catch(error => console.log('error for otp', error));

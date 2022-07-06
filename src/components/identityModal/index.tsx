@@ -9,7 +9,8 @@ import {Modal} from 'react-native';
 export default function IdentityModal(props: {
   visible: boolean | undefined;
   crossPress: any;
-}) {
+})
+ {
   const [select, setSelect] = useState('');
 
   return (
@@ -53,11 +54,10 @@ export default function IdentityModal(props: {
                   style={{
                     position: 'absolute',
                     height: 20,
-                    width:20,
-                   // right: 0,
-                    resizeMode:'contain',
-                    right:13,
-                    top:10
+                    width: 20,
+                    resizeMode: 'contain',
+                    right: 13,
+                    top: 10,
                   }}
                   source={IMAGES.Tick_IMAGE}
                 />
@@ -68,7 +68,7 @@ export default function IdentityModal(props: {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.4}
               onPress={() => {
                 setSelect(STRINGS.TEXTLABLE.ATHLETE_TEXT);
@@ -87,8 +87,8 @@ export default function IdentityModal(props: {
                     position: 'absolute',
                     height: 20,
                     width: 20,
-                    right:13,
-                    top:37
+                    right: 13,
+                    top: 37,
                   }}
                   source={IMAGES.Tick_IMAGE}
                 />
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     width: vw(335),
     borderRadius: 5,
     borderWidth: normalize(1),
-    marginVertical:30,
+    marginVertical: 30,
     left: 3,
     borderColor: COLOR.PRIMARY_BLUE,
   },

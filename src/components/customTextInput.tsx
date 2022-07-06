@@ -2,16 +2,17 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 import COLOR from '../utils/colors';
-import {normalize} from '../utils/dimension';
+import {normalize, vh, vw} from '../utils/dimension';
 
 export default function CustomTextInput(props: any) {
+  const {value, style} = props;
   return (
-    <>
     <TextInput
       {...props}
+      value={value}
       right={null}
       dense={true}
-      style={styles.textInput}
+      style={[styles.textInput, style]}
       mode="outlined"
       outlineColor={COLOR.WHITE}
       activeOutlineColor={COLOR.WHITE}
@@ -22,12 +23,7 @@ export default function CustomTextInput(props: any) {
           background: COLOR.BLACK,
         },
       }}
-  
     />
-    {/* {right!==undefined?right():null} */}
-
-    </>
-    
   );
 }
 const styles = StyleSheet.create({
@@ -36,5 +32,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 24,
+    height: vh(48),
+    width: vw(327),
+    borderRadius: normalize(5),
   },
 });

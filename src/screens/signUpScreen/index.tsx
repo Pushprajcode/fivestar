@@ -36,12 +36,12 @@ const SignUp = () => {
         hidePassword: true,
       }}
       onSubmit={(values: any, {resetForm}) => {
-            console.log('jgkhlsdafg')
-       Alert.alert('Successfully submitted');
-       dispatch(SingUpApiCall(values));
+        console.log('jgkhlsdafg');
+        Alert.alert('Successfully submitted');
+        dispatch(SingUpApiCall(values));
         navigation.navigate('VerificationOtpScreen');
-       resetForm();
-       console.log('jgkhlsdafg')
+        resetForm();
+        console.log('jgkhlsdafg');
       }}
       validationSchema={yup.object().shape({
         name: yup.string().required(STRINGS.TEXTLABLE.FULL_NAME),
@@ -161,12 +161,15 @@ const SignUp = () => {
               values.email != '' &&
               values.password != '' ? (
                 <EnabledButton
+                  style={{marginRight: 15}}
                   label={STRINGS.TEXTLABLE.CREATE_ACCOUNT}
-                 // handleSubmit={handleSubmit}
                   onPress={handleSubmit}
                 />
               ) : (
-                <DisabledButton label={STRINGS.TEXTLABLE.CREATE_ACCOUNT} />
+                <DisabledButton
+                  style={{marginRight: 14}}
+                  label={STRINGS.TEXTLABLE.CREATE_ACCOUNT}
+                />
               )}
             </View>
             <View style={styles.orView}>
@@ -242,8 +245,8 @@ const styles = StyleSheet.create({
     width: vw(20),
     resizeMode: 'contain',
     position: 'absolute',
-    right: 30,
-    bottom: 35,
+    right: 38,
+    bottom: 37,
   },
   terms: {
     alignSelf: 'center',
@@ -258,10 +261,10 @@ const styles = StyleSheet.create({
   },
   orView: {
     alignSelf: 'center',
-    marginVertical: 15,
+    //marginVertical: 15,
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 20,
+    // marginTop:10,
   },
   orText: {
     color: COLOR.DARK_GREY,

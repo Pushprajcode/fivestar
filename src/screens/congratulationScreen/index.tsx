@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Modal from 'react-native-modal';
 import IMAGES from '../../utils/localImages';
 export default function CongratulationScreen() {
- const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   return (
     <Modal isVisible={true}>

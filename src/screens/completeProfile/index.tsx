@@ -12,7 +12,6 @@ import {
 import React, {useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-date-picker';
-import InputTextcomp from '../../components/customTextInput';
 import CustomBackButton from '../../components/customBackButton';
 import STRINGS from '../../utils/strings';
 import IMAGES from '../../utils/localImages';
@@ -21,8 +20,17 @@ import {normalize, vh, vw} from '../../utils/dimension';
 import COLOR from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import IdentityModal from '../../components/identityModal';
+import profileAction from './action';
+import {useSelector} from 'react-redux';
+import {store} from '../../redux/reducer/store';
+import verifyOtpReducer from '../verificationOtpScreen/reducer';
+import CustomTextInput from '../../components/customTextInput';
+import DobModal from '../../components/dobmodal';
 
 const EditProfile = () => {
+  const {data} = useSelector((store: any) => store.verifyOtpReducer);
+  console.log('drtfyjghkh3456789', data);
+
   const navigation = useNavigation<any>();
   const [imagepro, setImage] = useState('');
   const [imageShort, setImageShort] = useState('');
@@ -64,8 +72,9 @@ const EditProfile = () => {
       cropping: true,
     })
       .then(image => {
-        console.log('image path', image);
         setImage(image.path);
+
+        console.log('image path', image);
       })
       .catch(err => {
         console.log('erorr--------->', err);
@@ -89,17 +98,18 @@ const EditProfile = () => {
     <SafeAreaView style={styles.mainViewStyle}>
       <CustomBackButton style={styles.backButtonStyle} />
       <StatusBar barStyle="light-content" translucent={true} />
-      <ScrollView>
-        <View style={styles.textTellView}>
-          <Text style={styles.textcolor}> {STRINGS.TEXTLABLE.JOHN}</Text>
-          <Text style={styles.textcolor}>{STRINGS.TEXTLABLE.ABOUT_YOU}</Text>
-        </View>
 
+      <View style={styles.textTellView}>
+        <Text style={styles.textcolor}> {STRINGS.TEXTLABLE.JOHN}</Text>
+        <Text style={styles.textcolor}>{STRINGS.TEXTLABLE.ABOUT_YOU}</Text>
+      </View>
+      <ScrollView>
         <TouchableOpacity onPress={imagePickerOnpress}>
           <ImageBackground style={styles.rectangle} source={{uri: imagepro}}>
             <Image style={styles.cameraStyle} source={IMAGES.CAMERA} />
           </ImageBackground>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.cameraViewStyle}>
           <ImageBackground style={styles.prof} source={{uri: imageShort}}>
             <Image style={styles.cameraStyle2} source={IMAGES.CAMERA} />
@@ -107,7 +117,8 @@ const EditProfile = () => {
         </TouchableOpacity>
 
         <View style={styles.textInputView}>
-          <InputTextcomp
+          <CustomTextInput
+            // value={data?.username}
             label="Change your Username *"
             style={styles.textInputStyle}
           />
@@ -116,31 +127,39 @@ const EditProfile = () => {
             onPress={() => {
               setVisible(!visible);
             }}
-            style={{
-              height: 48,
-              width: '100%',
-              borderWidth: 2,
-              borderColor: 'white',
-            }}>
-            <Text style={{color: 'white'}}>{'select your identity'}</Text>
+            style={styles.selectIdentityView}>
+            <Text style={styles.identityTextStyle}>
+              {'select your identity'}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{flexDirection: 'row-reverse'}}>
             <Image style={styles.identityImageStyle} source={IMAGES.RIGHT} />
           </TouchableOpacity>
-
-          <TouchableOpacity>
-            <InputTextcomp label={'DOB'} />
-            <TouchableOpacity onPress={onpressDate}>
-              <Image style={styles.dobImageStyle} source={IMAGES.DATE} />
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setVisible(!visible);
+            }}
+            style={styles.selectIdentityView}>
+            <Text style={styles.dobTextStyle}>{STRINGS.TEXTLABLE.DOB}</Text>
           </TouchableOpacity>
-          <InputTextcomp label="Bio" />
-          <InputTextcomp label="Referral Code" />
-          <InputTextcomp label="Sports I Watch" />
+          {<DobModal visible={visible} />}
+          <TouchableOpacity style={{flexDirection: 'row-reverse'}}>
+            <Image style={styles.dobImageStyle} source={IMAGES.DATE} />
+          </TouchableOpacity>
+          
+          <CustomTextInput label="Bio" style={styles.textInputStyle} />
+          <CustomTextInput
+            label="Referral Code"
+            style={styles.textInputStyle}
+          />
+          <CustomTextInput
+            style={styles.textInputStyle}
+            label="Sports I Watch"
+          />
         </View>
       </ScrollView>
 
-      <EnabledButton label="NEXT" />
+      <EnabledButton label="NEXT" onPress={() => profileAction()} />
 
       {visible && (
         <IdentityModal visible={visible} crossPress={() => setVisible(false)} />
@@ -157,7 +176,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   backButtonStyle: {
-    marginLeft: normalize(8),
+    marginLeft: normalize(24),
+    marginBottom: normalize(8),
   },
   textTellView: {
     height: vh(64),
@@ -184,8 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cameraViewStyle: {
-    position: 'absolute',
-    top: 200,
+    bottom: normalize(40),
   },
   cameraStyle: {
     height: vh(35),
@@ -197,7 +216,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   prof: {
-    width: vw(97.6),
+    width: vw(98),
     height: vh(98),
     borderWidth: 1,
     borderColor: COLOR.WHITE,
@@ -208,23 +227,49 @@ const styles = StyleSheet.create({
     marginLeft: normalize(44),
   },
   textInputView: {
-    marginTop: 30,
     marginHorizontal: normalize(24),
   },
   textInputStyle: {
-    backgroundColor: 'red',
-    color: 'red',
+    color: COLOR.WHITE,
+    // marginLeft:normalize(10),
+    fontWeight: '400',
+    fontSize: 24,
+    lineHeight: 24,
   },
-  dobImageStyle: {
-    height: 20,
-    width: 20,
-    left: 275,
-    bottom: 35,
+  selectIdentityView: {
+    height: 48,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: COLOR.WHITE,
+    marginTop: normalize(10),
+    justifyContent: 'center',
+    borderRadius: 5,
   },
   identityImageStyle: {
     height: vh(20),
     width: vw(10),
     bottom: normalize(35),
     marginRight: normalize(10),
+  },
+  identityTextStyle: {
+    color: COLOR.WHITE,
+    marginLeft: normalize(10),
+    fontWeight: '400',
+    fontSize: 24,
+    lineHeight: 24,
+  },
+  dobImageStyle: {
+    height: vh(20),
+    width: vw(20),
+    bottom: 35,
+    left: 10,
+    resizeMode: 'contain',
+  },
+  dobTextStyle: {
+    color: COLOR.WHITE,
+    marginLeft: normalize(10),
+    fontWeight: '400',
+    fontSize: 24,
+    lineHeight: 24,
   },
 });

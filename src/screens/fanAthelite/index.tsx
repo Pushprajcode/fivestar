@@ -3,9 +3,7 @@ import {
   Text,
   View,
   Image,
-  ImageBackground,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -20,7 +18,6 @@ import {normalize, vh, vw} from '../../utils/dimension';
 export default function FanAthelite() {
   const navigation = useNavigation<any>();
   const [fan, setFan] = useState('');
-  //const [check, SetCheck] = useState(false);
   const onpressEdit = () => {
     return navigation.navigate('EditProfile');
   };
@@ -44,11 +41,14 @@ export default function FanAthelite() {
             source={IMAGES.FAN_IMAGE}
           />
           <Text style={styles.fanText}>{STRINGS.TEXTLABLE.FAN_TEXT}</Text>
+          {fan === STRINGS.TEXTLABLE.FAN_TEXT ? (
+            <Image style={styles.tickImageStyle} source={IMAGES.Tick_IMAGE} />
+          ) : null}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.fanViewer}
           onPress={() => {
-           {
+            {
               setFan(STRINGS.TEXTLABLE.ATHLETE_TEXT);
             }
           }}>
@@ -60,6 +60,9 @@ export default function FanAthelite() {
             }
             source={IMAGES.PLAYER_IMAGE}
           />
+          {fan === STRINGS.TEXTLABLE.ATHLETE_TEXT ? (
+            <Image style={styles.tickImageStyle} source={IMAGES.Tick_IMAGE} />
+          ) : null}
         </TouchableOpacity>
       </View>
       {fan != STRINGS.TEXTLABLE.FAN_TEXT &&
@@ -101,6 +104,13 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     borderWidth: normalize(1),
+  },
+  tickImageStyle: {
+    position: 'absolute',
+    height: 20,
+    width: 20,
+    right: 13,
+    top: 10,
   },
   fanborderStyle: {
     height: vh(110),
