@@ -16,7 +16,9 @@ import {DisabledButton, EnabledButton} from '../../components/customButton';
 import STRINGS from '../../utils/strings';
 import IMAGES from '../../utils/localImages';
 import COLOR from '../../utils/colors';
-import {vh, vw} from '../../utils/dimension';
+import {normalize, vh, vw} from '../../utils/dimension';
+import CustomBackButton from '../../components/customBackButton';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 function LoginScreen() {
   const navigation = useNavigation<any>();
@@ -29,7 +31,7 @@ function LoginScreen() {
         phoneNo: '',
       }}
       onSubmit={(values, {resetForm}) => {
-        Alert.alert('Successfully submitted');
+        Alert.alert(STRINGS.TEXTLABLE.SIGNUP_ALERT);
         resetForm();
       }}
       validationSchema={yup.object().shape({
@@ -53,12 +55,14 @@ function LoginScreen() {
         isValid,
         handleBlur,
       }) => (
-        <View style={styles.mainView}>
-          <Text style={styles.using}>{STRINGS.TEXTLABLE.SIGN_UP_USING}</Text>
-
+        <SafeAreaView style={styles.mainView}>
+          <CustomBackButton />
+          <View style={styles.emailTextView}>
+            <Text style={styles.using}>{STRINGS.TEXTLABLE.SIGN_UP_USING}</Text>
+          </View>
           <View style={styles.textView}>
             <CustomTextInput
-              label="Email"
+              label={STRINGS.TEXTLABLE.EMAIL}
               value={values.email}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
@@ -66,69 +70,68 @@ function LoginScreen() {
             <Text style={styles.alert}>
               {touched.email && errors.email && errors.email}
             </Text>
-
-            <View style={styles.passwordVeiw}>
-              <CustomTextInput
-                label={'Password'}
-                value={values.password}
-                secureTextEntry={values.hidePassword ? true : false}
-                onChangeText={handleChange('password')}
-                onBlur={() => setFieldTouched('password')}
-              />
-              <TouchableOpacity
-                onPress={() => {
-                  setFieldValue('hidePassword', !values.hidePassword);
-                }}>
-                {values.hidePassword ? (
-                  <Image
-                    style={styles.eyeClose}
-                    source={IMAGES.EYE_CLOSE_IMAGE}
-                  />
-                ) : (
-                  <Image
-                    style={styles.eyeOpen}
-                    source={IMAGES.EYE_OPEN_IMAGE}
-                  />
-                )}
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.alert}>
-              {touched.password && errors.password && errors.password}
-            </Text>
-            <TouchableOpacity>
-              <Text style={styles.forget}>
-                {STRINGS.TEXTLABLE.FOGET_PASSWORD}
-              </Text>
+           <View>
+            <CustomTextInput
+              label={STRINGS.TEXTLABLE.PASSWORD_LEVEL}
+              value={values.password}
+              secureTextEntry={values.hidePassword ? true : false}
+              onChangeText={handleChange('password')}
+              onBlur={() => setFieldTouched('password')}
+            />
+            <TouchableOpacity
+            style={styles.eyeView}
+              onPress={() => {
+                setFieldValue('hidePassword', !values.hidePassword);
+              }}>
+              {values.hidePassword ? (
+                <Image
+                  style={styles.eyeClose}
+                  source={IMAGES.EYE_CLOSE_IMAGE}
+                />
+              ) : (
+                <Image style={styles.eyeOpen} source={IMAGES.EYE_OPEN_IMAGE} />
+              )}
             </TouchableOpacity>
-            {isValid && values.email != '' && values.password != '' ? (
-              <EnabledButton
-                style={styles.buttonStyle}
-                label={STRINGS.TEXTLABLE.SIGN_IN}
-                onPress={() => Alert.alert('signed in')}
-              />
-            ) : (
-              <DisabledButton
-                style={styles.buttonStyle}
-                label={STRINGS.TEXTLABLE.SIGN_UP}
-              />
-            )}
-            <View style={styles.orView}>
-              <View style={styles.orStart} />
-              <Text style={styles.orText}>{STRINGS.TEXTLABLE.OR}</Text>
-              <View style={styles.orEnd}></View>
-            </View>
-            <GoogleCustomButton />
-            <View style={styles.newUser}>
-              <Text style={styles.new}>{STRINGS.TEXTLABLE.NEW_USER}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('SignUp');
-                }}>
-                <Text style={styles.signUp}>{STRINGS.TEXTLABLE.SIGN_UP}</Text>
-              </TouchableOpacity>
-            </View>
           </View>
-        </View>
+          <Text style={styles.alert}>
+            {touched.password && errors.password && errors.password}
+          </Text>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.forget}>
+              {STRINGS.TEXTLABLE.FOGET_PASSWORD}
+            </Text>
+          </TouchableOpacity>
+          {isValid && values.email != '' && values.password != '' ? (
+            <EnabledButton
+              style={styles.buttonStyle}
+              label={STRINGS.TEXTLABLE.SIGN_IN}
+              onPress={() => Alert.alert('signed in')}
+            />
+          ) : (
+            <DisabledButton
+              style={styles.buttonStyle}
+              label={STRINGS.TEXTLABLE.SIGN_UP}
+            />
+          )}
+          <View style={styles.orView}>
+            <View style={styles.orStart} />
+            <Text style={styles.orText}>{STRINGS.TEXTLABLE.OR}</Text>
+            <View style={styles.orEnd}></View>
+          </View>
+
+          <GoogleCustomButton  style={styles.socialButtonStyle}/>
+
+          <View style={styles.newUser}>
+            <Text style={styles.new}>{STRINGS.TEXTLABLE.NEW_USER}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('SignUp');
+              }}>
+              <Text style={styles.signUp}>{STRINGS.TEXTLABLE.SIGN_UP}</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
       )}
     </Formik>
   );
@@ -138,21 +141,22 @@ const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     backgroundColor: COLOR.BLACK,
-    paddingHorizontal: 20,
+  },
+  emailTextView: {
+    marginLeft: normalize(18),
+    marginTop: normalize(19),
   },
   textView: {
-    marginTop: 110,
-    width: '100%',
+    marginHorizontal: normalize(15),
+    marginTop: normalize(16),
+    justifyContent: 'center',
   },
   using: {
     color: COLOR.WHITE,
-    fontWeight: '400',
+    fontWeight: '900',
     fontSize: 24,
-    fontStyle: 'normal',
-    fontFamily: 'HelveticaNeue-CondensedBold',
-    top: 100,
-    width: vw(281),
-    height: vh(80),
+    lineHeight: 24,
+    fontStyle:'italic'
   },
   passwordVeiw: {
     justifyContent: 'space-between',
@@ -160,30 +164,33 @@ const styles = StyleSheet.create({
   forget: {
     color: COLOR.LIGHT_BLUE,
     alignSelf: 'flex-end',
-    marginRight: 10,
+    marginRight: normalize(10),
   },
-  eyeClose: {
-    height: 20,
-    width: 20,
-    resizeMode: 'contain',
+  eyeView:{
+    height: normalize(20),
+    width: normalize(20),
+    zIndex:2,
     position: 'absolute',
-    right: 28,
-    bottom: 16,
+    right: normalize(12),
+     bottom: normalize(18),
+},
+  eyeClose: {
+    height: normalize(20),
+    width: normalize(20),
+    resizeMode: 'contain',
   },
   eyeOpen: {
-    height: 20,
-    width: 20,
-    resizeMode: 'contain',
-    position: 'absolute',
-    right: 28,
-    bottom: 16,
+    height: normalize(20),
+    width: normalize(20),
+   resizeMode: 'contain',
+
   },
   alert: {
     fontSize: 12,
     color: COLOR.RED,
   },
   buttonStyle: {
-    marginTop: 20,
+    marginTop: normalize(40),
   },
   orView: {
     alignSelf: 'center',
@@ -200,12 +207,14 @@ const styles = StyleSheet.create({
   orStart: {
     borderBottomWidth: 1,
     borderBottomColor: COLOR.LIGHT_GREY,
-    width: 150,
+    width: vw(166),
+    left:normalize(8)
   },
   orEnd: {
     borderBottomWidth: 1,
     borderBottomColor: COLOR.LIGHT_GREY,
-    width: 150,
+    width: 166,
+    left:normalize(3)
   },
   naming: {
     fontSize: 18,
@@ -213,7 +222,10 @@ const styles = StyleSheet.create({
   newUser: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop:normalize(20),
+  },
+  socialButtonStyle:{
+    marginLeft:normalize(32)
   },
   new: {color: COLOR.WHITE, fontSize: 14, fontWeight: '500'},
   signUp: {
@@ -221,5 +233,6 @@ const styles = StyleSheet.create({
     left: 9,
     fontSize: 14,
     fontWeight: '500',
+    fontStyle:'italic'
   },
 });

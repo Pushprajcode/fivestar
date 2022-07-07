@@ -2,6 +2,8 @@ const STRINGS = {
   TEXTLABLE: {
     //sign in text
     SIGN_UP_USING: 'Sign In Using Your\nMobile Number / Email',
+    EMAIL:"Email",
+    PASSWORD_LEVEL:'Password',
     SIGN_IN: 'SIGN IN',
     SIGN_IN_USER: ' Sign In',
     FOGET_PASSWORD: 'Forget Password?',
@@ -9,7 +11,8 @@ const STRINGS = {
     NEW_USER: "I'm a new user",
     SIGN_UP: 'Sign Up',
     GOOGLE_BUTTON_TEXT: 'Continue with Google',
-    APPLE_BUTTON_TEXT: "'Continue with Apple'",
+    APPLE_BUTTON_TEXT: "Continue with Apple",
+    SIGNUP_ALERT:'Successfully submitted',
     //signup text///////
     CREATE_ACCOUNT: 'Create Account',
     SIGNUP_STARTED: 'Signup to get started',
@@ -39,8 +42,14 @@ const STRINGS = {
     //completeProfile
     JOHN: 'Hi John !',
     ABOUT_YOU: 'Tell us about yourself',
+    USER_NAME:"Change your Username *",
     SELECT_IDENTITY: 'Select your identity',
-    DOB:'DOB(MM/DD/YYYY)'
+    DOB:'DOB(MM/DD/YYYY)',
+    BIO:"Bio" ,
+    REFERRAL:"Referral Code",
+    SPORT_WATCH:"Sports I Watch"
+
+    
   },
 };
 export default STRINGS;

@@ -11,6 +11,7 @@ import {
   View,
   Image,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import * as yup from 'yup';
 import COLOR from '../../utils/colors';
@@ -66,65 +67,69 @@ const SignUp = () => {
         handleBlur,
       }) => (
         <SafeAreaView style={styles.mainView}>
-          <CustomBackButton style />
-          <View style={styles.textinputView}>
+          <CustomBackButton />
+          <View style={styles.createTextStyle}>
             <Text style={styles.createText}>
               {STRINGS.TEXTLABLE.CREATE_ACCOUNT}
             </Text>
             <Text style={styles.getStartText}>
               {STRINGS.TEXTLABLE.SIGNUP_STARTED}
             </Text>
-            <CustomTextInput
-              label="Full Name*"
-              value={values.name}
-              onChangeText={handleChange('name')}
-              onBlur={handleBlur('name')}
-            />
-            {touched.name && errors.name && (
-              <Text style={styles.alert}>{errors.name}</Text>
-            )}
-            <CustomTextInput
-              label="Mobile Number*"
-              value={values.phoneNo}
-              onChangeText={handleChange('phoneNo')}
-              onBlur={handleBlur('phoneNo')}
-            />
-            {touched.phoneNo && errors.phoneNo && (
-              <Text style={styles.alert}>{errors.phoneNo}</Text>
-            )}
-            <CustomTextInput
-              label="Email*"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-            />
-            {touched.email && errors.email && (
-              <Text style={styles.alert}>{errors.email}</Text>
-            )}
-
-            <CustomTextInput
-              label="Password*"
-              value={values.password}
-              secureTextEntry={values.hidePassword ? true : false}
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-            />
-            <TouchableOpacity
-              style={styles.eyeView}
-              onPress={() => {
-                setFieldValue('hidePassword', !values.hidePassword);
-              }}>
-              {values.hidePassword ? (
-                <Image style={styles.eye} source={IMAGES.EYE_CLOSE_IMAGE} />
-              ) : (
-                <Image style={styles.eye} source={IMAGES.EYE_OPEN_IMAGE} />
+          </View>
+          <ScrollView>
+            <View style={styles.textinputView}>
+              <CustomTextInput
+                label="Full Name*"
+                value={values.name}
+                onChangeText={handleChange('name')}
+                onBlur={handleBlur('name')}
+              />
+              {touched.name && errors.name && (
+                <Text style={styles.alert}>{errors.name}</Text>
               )}
-            </TouchableOpacity>
+              <CustomTextInput
+                label="Mobile Number*"
+                value={values.phoneNo}
+                onChangeText={handleChange('phoneNo')}
+                onBlur={handleBlur('phoneNo')}
+              />
+              {touched.phoneNo && errors.phoneNo && (
+                <Text style={styles.alert}>{errors.phoneNo}</Text>
+              )}
+              <CustomTextInput
+                label="Email*"
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+              />
+              {touched.email && errors.email && (
+                <Text style={styles.alert}>{errors.email}</Text>
+              )}
+              <View>
+                <CustomTextInput
+                  label="Password*"
+                  value={values.password}
+                  secureTextEntry={values.hidePassword ? true : false}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                />
+                <TouchableOpacity
+                  style={styles.eyeView}
+                  onPress={() => {
+                    setFieldValue('hidePassword', !values.hidePassword);
+                  }}>
+                  {values.hidePassword ? (
+                    <Image style={styles.eye} source={IMAGES.EYE_CLOSE_IMAGE} />
+                  ) : (
+                    <Image style={styles.eye} source={IMAGES.EYE_OPEN_IMAGE} />
+                  )}
+                </TouchableOpacity>
 
-            {touched.password && errors.password && (
-              <Text style={styles.alert}>{errors.password}</Text>
-            )}
-
+                {touched.password && errors.password && (
+                  <Text style={styles.alert}>{errors.password}</Text>
+                )}
+              </View>
+            </View>
             <View style={styles.checkboxView}>
               <TouchableOpacity
                 onPress={() => {
@@ -132,7 +137,7 @@ const SignUp = () => {
                 }}>
                 {values.acceptTerms ? (
                   <Image
-                    source={require('../../assets/images/check.png')}
+                    source={IMAGES.CHECKBOX_ENABLE}
                     style={styles.image}
                   />
                 ) : (
@@ -161,7 +166,6 @@ const SignUp = () => {
               values.email != '' &&
               values.password != '' ? (
                 <EnabledButton
-                  style={{marginRight: 15}}
                   label={STRINGS.TEXTLABLE.CREATE_ACCOUNT}
                   onPress={handleSubmit}
                 />
@@ -178,7 +182,7 @@ const SignUp = () => {
               <View style={styles.orEnd}></View>
             </View>
             <GoogleCustomButton />
-            <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+            <View style={styles.alreadyView}>
               <Text style={{color: COLOR.WHITE}}>
                 {STRINGS.TEXTLABLE.ALREADY_USER}
               </Text>
@@ -191,7 +195,7 @@ const SignUp = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         </SafeAreaView>
       )}
     </Formik>
@@ -204,11 +208,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.BLACK,
   },
+  createTextStyle: {
+    marginLeft: normalize(18),
+    marginTop: normalize(15),
+  },
   textinputView: {
-    marginHorizontal: 15,
-    marginTop: 20,
-    height: '100%',
-    width: '94%',
+    marginHorizontal: normalize(20),
+    marginTop: normalize(16),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   createText: {
     color: COLOR.WHITE,
@@ -226,27 +234,35 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   alert: {
-    fontSize: 12,
     color: COLOR.RED,
+    fontSize: 12,
+    height: normalize(15),
+    maxWidth: normalize(289),
+    bottom: normalize(4),
+    width:normalize(300),
+    right:normalize(29)
+  
+  
+   
   },
   checkboxView: {
     flexDirection: 'row',
-    marginHorizontal: 5,
+    marginHorizontal: normalize(13),
     marginTop: 19,
   },
   use: {
     color: COLOR.LIGHT_BLUE,
   },
   eyeView: {
-    top: normalize(18),
+    justifyContent: 'flex-end',
   },
   eye: {
     height: vh(20),
     width: vw(20),
     resizeMode: 'contain',
     position: 'absolute',
-    right: 38,
-    bottom: 37,
+    right: 20,
+    bottom: normalize(22),
   },
   terms: {
     alignSelf: 'center',
@@ -261,10 +277,9 @@ const styles = StyleSheet.create({
   },
   orView: {
     alignSelf: 'center',
-    //marginVertical: 15,
+    marginHorizontal: normalize(20),
     alignItems: 'center',
     flexDirection: 'row',
-    // marginTop:10,
   },
   orText: {
     color: COLOR.DARK_GREY,
@@ -275,17 +290,24 @@ const styles = StyleSheet.create({
   orStart: {
     borderBottomWidth: 1,
     borderBottomColor: COLOR.DARK_GREY,
-    width: 150,
+    width: normalize(150),
+    marginLeft: normalize(2),
   },
   orEnd: {
     borderBottomWidth: 1,
     borderBottomColor: COLOR.DARK_GREY,
-    width: 150,
+    width: normalize(175),
+  },
+  alreadyView: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: normalize(30),
   },
   signIn: {
     color: '#44C2E3',
     left: normalize(9),
     fontSize: 14,
     fontWeight: '500',
+   
   },
 });

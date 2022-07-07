@@ -63,8 +63,10 @@ export default function VerificationOtpScreen() {
             ref={pin1}
             maxLength={1}
             onChangeText={text => {
-              setOtp(otp => otp + text);
-              pin2.current.focus();
+              if (text.length > 0) {
+                setOtp(otp => otp + text);
+                pin2.current.focus();
+              }
             }}
             style={styles.textInput}
           />
@@ -72,8 +74,10 @@ export default function VerificationOtpScreen() {
             ref={pin2}
             maxLength={1}
             onChangeText={text => {
-              setOtp(otp => otp + text);
-              pin3.current.focus();
+              if (text.length > 0) {
+                setOtp(otp => otp + text);
+                pin3.current.focus();
+              }
             }}
             style={styles.textInput}
           />
@@ -81,17 +85,18 @@ export default function VerificationOtpScreen() {
             ref={pin3}
             maxLength={1}
             onChangeText={text => {
-              setOtp(otp => otp + text);
-              pin4.current.focus();
+              if (text.length > 0) {
+                setOtp(otp => otp + text);
+                pin4.current.focus();
+              }
             }}
             style={styles.textInput}
           />
           <TextInput
             ref={pin4}
             maxLength={1}
-            onChangeText={text => {
-              setOtp(otp => otp + text);
-              pin4.current.blur();
+            onChangeText={(text: string) => {
+              if (text.length > 0) setOtp(otp => otp + text);
             }}
             style={styles.textInput}
           />
@@ -102,19 +107,27 @@ export default function VerificationOtpScreen() {
             label="submit"
             onPress={() => {
               dispatch(
-                OtpAction(otp, countryCode, phoneNo, userId, (data: any) => {
-                  console.log('fugyhkjlkm;,3245678', data.data.statusCode);
-                  if (data.data.statusCode == 200) {
-                    console.log('Inside if', data.data.statusCode);
-                    onpressModal();
-                  }
-                }),
+                OtpAction(
+                  otp,
+                  countryCode,
+                  phoneNo,
+                  userId,
+                  (data: any) => {
+                    if (data.data.statusCode == 200) {
+                      console.log('Inside if', data.data.statusCode);
+                      onpressModal();
+                    }
+                  },
+                  (err: any) => {
+                    console.log('Error', err);
+                  },
+                ),
               );
             }}
             style={styles.buttonStyle}
           />
         ) : (
-          <DisabledButton label="submit" style={styles.buttonStyle} />
+          <DisabledButton label='SUBMIT' style={styles.buttonStyle} />
         )}
         <Text style={styles.ReecivedTextStyle}>
           {STRINGS.TEXTLABLE.RECIEVED}
@@ -128,6 +141,9 @@ export default function VerificationOtpScreen() {
           </Text>
         </TouchableOpacity>
         <Image style={styles.boxerImageStyle} source={IMAGES.Boxer_IMAGE} />
+        <View>
+          <Image style={styles.footerImageStyle} source={IMAGES.FOOTER_IMAGE} />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -146,7 +162,7 @@ const styles = StyleSheet.create({
   },
   otpViewStyle: {
     flexDirection: 'row',
-    flex: 0.26,
+  marginTop:normalize(34)
   },
   enterVerification: {
     color: COLOR.WHITE,
@@ -154,6 +170,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 20,
     marginHorizontal: normalize(24),
+    fontStyle:"italic"
   },
   digitVerification: {
     color: COLOR.WHITE,
@@ -165,11 +182,14 @@ const styles = StyleSheet.create({
   resendVerification: {
     color: COLOR.LIGHT_BLUE,
     alignSelf: 'center',
+    fontStyle:'italic',
+    fontWeight:'900',
+    fontSize:normalize(14)
   },
   textInput: {
     backgroundColor: COLOR.BLACK,
-    height: vh(50),
-    width: vw(65),
+    height: vh(48),
+    width: vw(64),
     fontWeight: '900',
     fontSize: 30,
     borderRadius: 5,
@@ -178,14 +198,13 @@ const styles = StyleSheet.create({
     color: COLOR.PRIMARY_BLUE,
     textAlign: 'center',
     marginLeft: normalize(24),
+    paddingVertical: normalize(5),
   },
   buttonStyle: {
-    marginTop: normalize(90),
-  },
-  inpView: {
-    marginVertical: normalize(15),
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    marginTop: normalize(40),
+    marginLeft:normalize(23),
+    marginRight:normalize(10)
+   
   },
   ReecivedTextStyle: {
     color: COLOR.WHITE,
@@ -198,6 +217,17 @@ const styles = StyleSheet.create({
     width: 333,
     height: 354,
     bottom: 0,
-    top: 75,
+    top: normalize(17),
+    marginLeft: normalize(23),
+    opacity: 0.7,
+  },
+  footerImageStyle: {
+    height:vh(75),
+    width:vw(375),
+    resizeMode: 'contain',
+    zIndex: 1,
+    position: 'absolute',
+    top: normalize(-70),
+    opacity:0.6
   },
 });

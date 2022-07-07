@@ -4,14 +4,15 @@ import onGoogleButtonPress from '../utils/googleSignIn';
 import IMAGES from '../utils/localImages';
 import STRINGS from '../utils/strings';
 import COLOR from '../utils/colors';
-import {normalize} from '../utils/dimension';
+import {normalize, vh, vw} from '../utils/dimension';
 
-export default function CustomSocialButton() {
+export default function CustomSocialButton(props:any) {
+  const{style}=props
   return (
-    <View style={styles.socialButtonView}>
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
       <TouchableOpacity
         onPress={() => onGoogleButtonPress()}
-        style={styles.google}>
+        style={[styles.google,style]}>
         <Image
           style={styles.CommonSocialLoginImageStyle}
           source={IMAGES.GOOGLE_IMAGE}
@@ -20,7 +21,7 @@ export default function CustomSocialButton() {
           {STRINGS.TEXTLABLE.GOOGLE_BUTTON_TEXT}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.google}>
+      <TouchableOpacity style={[styles.google,style]}>
         <Image
           style={styles.CommonSocialLoginImageStyle}
           source={IMAGES.APPLE_IMAGE}
@@ -31,25 +32,28 @@ export default function CustomSocialButton() {
   );
 }
 const styles = StyleSheet.create({
-  socialButtonView: {
-    marginTop: 19,
-    marginHorizontal: normalize(12),
-  },
   google: {
     backgroundColor: COLOR.WHITE,
-    margin: 20,
+
+    marginHorizontal: normalize(20),
     flexDirection: 'row',
-    padding: 15,
+
     justifyContent: 'center',
-    borderRadius: 5,
-    width: '100%',
-    right: 19,
+    borderRadius: normalize(5),
+    height: normalize(48),
+    marginTop: normalize(32),
+    borderWidth: 1,
+    width: normalize(350),
   },
   CommonSocialLoginImageStyle: {
     height: 20,
     width: 20,
+    alignSelf: 'center',
   },
   naming: {
-    fontSize: 18,
+    fontSize: 16,
+    alignSelf: 'center',
+    marginLeft: normalize(8),
+    lineHeight: normalize(24),
   },
 });

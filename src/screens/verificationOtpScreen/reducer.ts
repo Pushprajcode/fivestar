@@ -1,5 +1,5 @@
 const initialState = {
-  data: [],
+  data: {},
 };
 
 const verifyOtpReducer = (state = initialState, action: any) => {

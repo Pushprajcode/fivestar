@@ -5,6 +5,7 @@ const IMAGES={
       EYE_OPEN_IMAGE:require('../assets/images/Vector.png'),
       BACK_IMAGE:require('../assets/images/VectorBack.png'),
       CHECKBOX_IMAGE:require('../assets/images/checkbox.png'),
+      CHECKBOX_ENABLE:require('../assets/images/checkbox1.png'),
       FAN_IMAGE:require('../assets/images/fan.png'),
       PLAYER_IMAGE:require('../assets/images/player.png'),
       RIGHT_THUMB:require('../assets/images/rightthumb.png'),
@@ -16,8 +17,8 @@ const IMAGES={
       RIGHT:require('../assets/images/rightvector.png'),
       CROSS_IMAGE:require('../assets/images/crossimage.png'),
       Tick_IMAGE:require('../assets/images/tick.png'),
-      Boxer_IMAGE:require('../assets/images/Boxer.png')
-      
+      Boxer_IMAGE:require('../assets/images/Boxer.png'),
+      FOOTER_IMAGE:require('../assets/images/fotterimage.png')      
 
     
       
