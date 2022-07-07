@@ -95,7 +95,7 @@ const EditProfile = () => {
       });
   };
   return (
-    <SafeAreaView style={styles.mainViewStyle}>
+    <View style={styles.mainViewStyle}>
       <CustomBackButton style={styles.backButtonStyle} />
       <StatusBar barStyle="light-content" translucent={true} />
 
@@ -119,7 +119,7 @@ const EditProfile = () => {
         <View style={styles.textInputView}>
           <CustomTextInput
             // value={data?.username}
-            label="Change your Username *"
+            label={STRINGS.TEXTLABLE.USER_NAME}
             style={styles.textInputStyle}
           />
 
@@ -129,7 +129,7 @@ const EditProfile = () => {
             }}
             style={styles.selectIdentityView}>
             <Text style={styles.identityTextStyle}>
-              {'select your identity'}
+              {STRINGS.TEXTLABLE.SELECT_IDENTITY}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{flexDirection: 'row-reverse'}}>
@@ -146,15 +146,18 @@ const EditProfile = () => {
           <TouchableOpacity style={{flexDirection: 'row-reverse'}}>
             <Image style={styles.dobImageStyle} source={IMAGES.DATE} />
           </TouchableOpacity>
-          
-          <CustomTextInput label="Bio" style={styles.textInputStyle} />
+
           <CustomTextInput
-            label="Referral Code"
+            label={STRINGS.TEXTLABLE.BIO}
+            style={styles.textInputStyle}
+          />
+          <CustomTextInput
+            label={STRINGS.TEXTLABLE.REFERRAL}
             style={styles.textInputStyle}
           />
           <CustomTextInput
             style={styles.textInputStyle}
-            label="Sports I Watch"
+            label={STRINGS.TEXTLABLE.SPORT_WATCH}
           />
         </View>
       </ScrollView>
@@ -164,7 +167,7 @@ const EditProfile = () => {
       {visible && (
         <IdentityModal visible={visible} crossPress={() => setVisible(false)} />
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
   mainViewStyle: {
     flex: 1,
     backgroundColor: 'black',
+    paddingTop: 20,
   },
   backButtonStyle: {
     marginLeft: normalize(24),
@@ -186,9 +190,10 @@ const styles = StyleSheet.create({
   },
   textcolor: {
     color: COLOR.WHITE,
-    fontSize: 24,
-    fontWeight: '400',
+    fontSize: normalize(24),
+    fontWeight: '900',
     lineHeight: normalize(30),
+    fontStyle: 'italic',
   },
 
   rectangle: {
@@ -207,13 +212,16 @@ const styles = StyleSheet.create({
     bottom: normalize(40),
   },
   cameraStyle: {
-    height: vh(35),
-    width: vw(35),
+    height: vh(18),
+    width: vw(20),
+    resizeMode: 'contain',
+    opacity: 0.6,
   },
   cameraStyle2: {
-    height: vh(25),
-    width: vw(25),
+    height: vh(20),
+    width: vw(20),
     opacity: 0.6,
+    resizeMode: 'contain',
   },
   prof: {
     width: vw(98),
@@ -231,17 +239,15 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     color: COLOR.WHITE,
-    // marginLeft:normalize(10),
-    fontWeight: '400',
-    fontSize: 24,
-    lineHeight: 24,
+    height: vh(48),
+    width: vw(327),
   },
   selectIdentityView: {
-    height: 48,
-    width: '100%',
+    height: vh(48),
+    width: normalize(327),
     borderWidth: 1,
     borderColor: COLOR.WHITE,
-    marginTop: normalize(10),
+    marginTop: normalize(15),
     justifyContent: 'center',
     borderRadius: 5,
   },
@@ -255,7 +261,7 @@ const styles = StyleSheet.create({
     color: COLOR.WHITE,
     marginLeft: normalize(10),
     fontWeight: '400',
-    fontSize: 24,
+    fontSize: 14,
     lineHeight: 24,
   },
   dobImageStyle: {
@@ -269,7 +275,7 @@ const styles = StyleSheet.create({
     color: COLOR.WHITE,
     marginLeft: normalize(10),
     fontWeight: '400',
-    fontSize: 24,
+    fontSize: 14,
     lineHeight: 24,
   },
 });

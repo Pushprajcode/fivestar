@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -40,7 +34,8 @@ export default function FanAthelite() {
             }
             source={IMAGES.FAN_IMAGE}
           />
-          <Text style={styles.fanText}>{STRINGS.TEXTLABLE.FAN_TEXT}</Text>
+          <Text style={styles.fanText}>
+            {STRINGS.TEXTLABLE.FAN_TEXT}</Text>
           {fan === STRINGS.TEXTLABLE.FAN_TEXT ? (
             <Image style={styles.tickImageStyle} source={IMAGES.Tick_IMAGE} />
           ) : null}
@@ -84,6 +79,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BLACK,
     flex: 1,
     paddingHorizontal: 10,
+    borderColor: 'red',
+    borderWidth: 3,
   },
   fanImageView: {
     flexDirection: 'row',
@@ -121,12 +118,12 @@ const styles = StyleSheet.create({
   },
   fanText: {
     fontWeight: '900',
-    fontSize: 22,
+    fontSize: normalize,
     color: 'white',
     alignSelf: 'center',
-    left: 50,
+    left: normalize(62),
     fontStyle: 'italic',
-    bottom: 50,
+    bottom: normalize(70),
   },
   athleteStyle: {
     height: vh(110),
@@ -147,12 +144,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   enableButtonStyle: {
-    position: 'absolute',
-    marginTop: normalize(260),
+    marginTop: 'auto',
   },
   disableButtonStyle: {
-    position: 'absolute',
-    marginTop: normalize(600),
+    marginTop: 'auto',
   },
   fanViewer: {
     height: vh(110),
