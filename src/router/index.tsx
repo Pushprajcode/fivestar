@@ -6,14 +6,15 @@ import SplashScreen from '../screens/splashScreen';
 import LoginScreen from '../screens/logInScreen';
 import SignUp from '../screens/signUpScreen';
 import VerificationOtpScreen from '../screens/verificationOtpScreen';
-import CongratulationScreen from '../screens/congratulationScreen';
 import TermsScreen from '../screens/termsConditionScreen';
 import FanAthelite from '../screens/fanAthelite';
-
 import EditProfile from '../screens/completeProfile';
 import ModalScreen from '../components/modal';
 import ROUTE_NAMES from './routeNames';
 import IdentityModal from '../components/identityModal';
+import SportsListData from '../screens/completeProfile/sportsSelect';
+import ZipCode from '../screens/completeProfile/zipCode';
+
 
 const stack = createNativeStackNavigator();
 const NavigationScreen = () => {
@@ -34,7 +35,7 @@ const NavigationScreen = () => {
         />
         <stack.Screen
           name={ROUTE_NAMES.CONGRATULATION}
-          component={CongratulationScreen}
+          component={ModalScreen}
         />
         <stack.Screen
           name={ROUTE_NAMES.TERM_CONDITIONS}
@@ -43,7 +44,9 @@ const NavigationScreen = () => {
         <stack.Screen name={ROUTE_NAMES.FAN_ATHLETE} component={FanAthelite} />
         <stack.Screen name={ROUTE_NAMES.EDIT_PROFILE} component={EditProfile} />
         <stack.Screen name={ROUTE_NAMES.MODAL} component={ModalScreen} />
-        <stack.Screen name={'IndentityModal'} component={IdentityModal} />
+        <stack.Screen name={ROUTE_NAMES.IDENTITY_MODAL} component={IdentityModal} />
+        <stack.Screen name={ROUTE_NAMES.SPORT_LIST} component={SportsListData}/>
+        <stack.Screen name={ROUTE_NAMES.ZIPCODE}component={ZipCode}/>
       </stack.Navigator>
     </NavigationContainer>
   );

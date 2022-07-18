@@ -1,10 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import SingUpApiCall from './action';
 import {
-  Alert,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import * as yup from 'yup';
 import COLOR from '../../utils/colors';
@@ -22,32 +22,44 @@ import {DisabledButton, EnabledButton} from '../../components/customButton';
 import CustomTextInput from '../../components/customTextInput';
 import CustomBackButton from '../../components/customBackButton';
 import {normalize, vh, vw} from '../../utils/dimension';
+import ROUTE_NAMES from '../../router/routeNames';
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<any>();
   const dispatch = useDispatch<any>();
+  const termfun=()=>{
+    navigation.navigate(ROUTE_NAMES.TERM_CONDITIONS)
+  }
   return (
     <Formik
       initialValues={{
         name: '',
-        phoneNo: '',
         email: '',
         password: '',
+        countryCode: '+1',
+        phoneNo: '',
         acceptTerms: false,
         hidePassword: true,
       }}
       onSubmit={(values: any, {resetForm}) => {
-        console.log('jgkhlsdafg');
-        Alert.alert('Successfully submitted');
-        dispatch(SingUpApiCall(values));
-        navigation.navigate('VerificationOtpScreen');
-        resetForm();
-        console.log('jgkhlsdafg');
+        // resetForm();
+        setLoading(true);
+        dispatch(
+          SingUpApiCall(values, (resp: any) => {
+            if (resp.status == 200) {
+              navigation.navigate('VerificationOtpScreen');
+              setLoading(false);
+            } else {
+              setLoading(false);
+            }
+          }),
+        );
       }}
       validationSchema={yup.object().shape({
         name: yup.string().required(STRINGS.TEXTLABLE.FULL_NAME),
-        phoneNo: yup.number().required(STRINGS.TEXTLABLE.MOBILE_NUMBER),
         email: yup.string().email().required(STRINGS.TEXTLABLE.MAIL_MESSAGE),
+        phoneNo: yup.number().required(STRINGS.TEXTLABLE.MOBILE_NUMBER),
         password: yup
           .string()
           .matches(
@@ -79,7 +91,7 @@ const SignUp = () => {
           <ScrollView>
             <View style={styles.textinputView}>
               <CustomTextInput
-                label="Full Name*"
+                label={STRINGS.LABEL.FULL_NAME}
                 value={values.name}
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
@@ -88,16 +100,18 @@ const SignUp = () => {
                 <Text style={styles.alert}>{errors.name}</Text>
               )}
               <CustomTextInput
-                label="Mobile Number*"
+                label={STRINGS.LABEL.PHONE_NUMBER}
                 value={values.phoneNo}
                 onChangeText={handleChange('phoneNo')}
                 onBlur={handleBlur('phoneNo')}
+                maxLength={10}
+                keyboardType="numeric"
               />
               {touched.phoneNo && errors.phoneNo && (
                 <Text style={styles.alert}>{errors.phoneNo}</Text>
               )}
               <CustomTextInput
-                label="Email*"
+                label={STRINGS.LABEL.EMAIL}
                 value={values.email}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
@@ -107,11 +121,12 @@ const SignUp = () => {
               )}
               <View>
                 <CustomTextInput
-                  label="Password*"
+                  label={STRINGS.LABEL.PASSWORD}
                   value={values.password}
                   secureTextEntry={values.hidePassword ? true : false}
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
+                  style={styles.passtxtinput}
                 />
                 <TouchableOpacity
                   style={styles.eyeView}
@@ -126,7 +141,7 @@ const SignUp = () => {
                 </TouchableOpacity>
 
                 {touched.password && errors.password && (
-                  <Text style={styles.alert}>{errors.password}</Text>
+                  <Text style={styles.alertPassword}>{errors.password}</Text>
                 )}
               </View>
             </View>
@@ -136,10 +151,7 @@ const SignUp = () => {
                   setFieldValue('acceptTerms', !values.acceptTerms);
                 }}>
                 {values.acceptTerms ? (
-                  <Image
-                    source={IMAGES.CHECKBOX_ENABLE}
-                    style={styles.image}
-                  />
+                  <Image source={IMAGES.CHECKBOX_ENABLE} style={styles.image} />
                 ) : (
                   <Image source={IMAGES.CHECKBOX_IMAGE} style={styles.image} />
                 )}
@@ -147,13 +159,13 @@ const SignUp = () => {
               {touched.acceptTerms && errors.acceptTerms && (
                 <Text style={styles.alert}>{errors.acceptTerms}</Text>
               )}
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.termsView}>
                 <TouchableOpacity>
                   <Text style={styles.terms}>{STRINGS.TEXTLABLE.AGREE}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('TermsScreen');
+                    navigation.navigate(ROUTE_NAMES.TERM_CONDITIONS);
                   }}>
                   <Text style={styles.use}>{STRINGS.TEXTLABLE.TERMS_OF}</Text>
                 </TouchableOpacity>
@@ -187,15 +199,17 @@ const SignUp = () => {
                 {STRINGS.TEXTLABLE.ALREADY_USER}
               </Text>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('LoginScreen');
-                }}>
+                onPress={termfun}>
                 <Text style={styles.signIn}>
                   {STRINGS.TEXTLABLE.SIGN_IN_USER}
                 </Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
+          {loading && (
+            <ActivityIndicator size={'large'}
+             color={COLOR.PRIMARY_BLUE} />
+          )}
         </SafeAreaView>
       )}
     </Formik>
@@ -223,6 +237,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 26,
     lineHeight: 24,
+    fontStyle: 'italic',
   },
   getStartText: {
     color: COLOR.WHITE,
@@ -239,11 +254,13 @@ const styles = StyleSheet.create({
     height: normalize(15),
     maxWidth: normalize(289),
     bottom: normalize(4),
-    width:normalize(300),
-    right:normalize(29)
-  
-  
-   
+    width: normalize(300),
+    right: normalize(29),
+  },
+  alertPassword: {
+    color: COLOR.RED,
+    fontSize: 12,
+    bottom: normalize(4),
   },
   checkboxView: {
     flexDirection: 'row',
@@ -262,7 +279,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     position: 'absolute',
     right: 20,
-    bottom: normalize(22),
+    bottom: normalize(17),
+  },
+  termsView: {
+    flexDirection: 'row',
   },
   terms: {
     alignSelf: 'center',
@@ -304,10 +324,13 @@ const styles = StyleSheet.create({
     marginTop: normalize(30),
   },
   signIn: {
-    color: '#44C2E3',
+    color:COLOR.PRIMARY_BLUE,
     left: normalize(9),
     fontSize: 14,
-    fontWeight: '500',
-   
+    fontWeight: '900',
+    fontStyle:'italic'
   },
+  passtxtinput:{
+    paddingRight:30
+  }
 });

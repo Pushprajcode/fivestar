@@ -7,6 +7,9 @@ const ROUTE_NAMES={
     TERM_CONDITIONS:"TermsScreen",
     FAN_ATHLETE:"FanAthelite",
     EDIT_PROFILE:"EditProfile",
-    MODAL:"ModalScreen" 
+    MODAL:"ModalScreen" ,
+    IDENTITY_MODAL:'IndentityModal',
+    SPORT_LIST:'SportsListData',
+    ZIPCODE:'ZipCode'
 }
 export default ROUTE_NAMES

@@ -7,12 +7,13 @@ import COLOR from '../../utils/colors';
 import {Modal} from 'react-native';
 
 export default function IdentityModal(props: {
-  visible: boolean | undefined;
+  visible: boolean;
   crossPress: any;
-})
- {
+  setIdentity: string;
+  identity: string;
+  callback: Function;
+}) {
   const [select, setSelect] = useState('');
-
   return (
     <View>
       <Modal transparent={true} visible={props.visible}>
@@ -22,24 +23,18 @@ export default function IdentityModal(props: {
             onPress={props.crossPress}>
             <Image style={styles.crossImageStyle} source={IMAGES.CROSS_IMAGE} />
           </TouchableOpacity>
-          <View
-            style={{
-              height: 32,
-              width: 245,
-              left: 25,
-              right: 105,
-              marginTop: normalize(10),
-            }}>
+          <View style={styles.identityView}>
             <Text style={styles.selectTextStyle}>
               {STRINGS.TEXTLABLE.SELECT_IDENTITY}
             </Text>
           </View>
 
-          <View style={{alignSelf: 'center', marginTop: 30}}>
+          <View style={styles.fanView}>
             <TouchableOpacity
               activeOpacity={0.4}
               onPress={() => {
                 setSelect(STRINGS.TEXTLABLE.FAN_TEXT);
+                props.callback(STRINGS.TEXTLABLE.FAN_TEXT);
               }}>
               <Image
                 style={
@@ -51,14 +46,7 @@ export default function IdentityModal(props: {
               />
               {select == STRINGS.TEXTLABLE.FAN_TEXT ? (
                 <Image
-                  style={{
-                    position: 'absolute',
-                    height: 20,
-                    width: 20,
-                    resizeMode: 'contain',
-                    right: 13,
-                    top: 10,
-                  }}
+                  style={styles.tickImgeStyle}
                   source={IMAGES.Tick_IMAGE}
                 />
               ) : null}
@@ -72,6 +60,7 @@ export default function IdentityModal(props: {
               activeOpacity={0.4}
               onPress={() => {
                 setSelect(STRINGS.TEXTLABLE.ATHLETE_TEXT);
+                props.callback(STRINGS.TEXTLABLE.ATHLETE_TEXT);
               }}>
               <Image
                 style={
@@ -83,13 +72,7 @@ export default function IdentityModal(props: {
               />
               {select == STRINGS.TEXTLABLE.ATHLETE_TEXT ? (
                 <Image
-                  style={{
-                    position: 'absolute',
-                    height: 20,
-                    width: 20,
-                    right: 13,
-                    top: 37,
-                  }}
+                  style={styles.plyaerTickImageStyle}
                   source={IMAGES.Tick_IMAGE}
                 />
               ) : null}
@@ -111,6 +94,28 @@ const styles = StyleSheet.create({
     borderColor: COLOR.SUMMER_SKY,
     backgroundColor: '#121212',
   },
+  identityView: {
+    height: 32,
+    width: 245,
+    left: 25,
+    right: 105,
+    marginTop: normalize(10),
+  },
+  tickImgeStyle: {
+    position: 'absolute',
+    height: 20,
+    width: 20,
+    resizeMode: 'contain',
+    right: 13,
+    top: 10,
+  },
+  plyaerTickImageStyle: {
+    position: 'absolute',
+    height: 20,
+    width: 20,
+    right: 13,
+    top: 37,
+  },
   crossImageViewStyle: {
     flexDirection: 'row-reverse',
   },
@@ -129,6 +134,9 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 24,
     top: normalize(2),
+  },
+  fanView:{
+    alignSelf: 'center', marginTop: 30
   },
   fanImageStyle: {
     height: vh(105),

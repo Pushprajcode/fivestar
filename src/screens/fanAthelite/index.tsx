@@ -34,8 +34,7 @@ export default function FanAthelite() {
             }
             source={IMAGES.FAN_IMAGE}
           />
-          <Text style={styles.fanText}>
-            {STRINGS.TEXTLABLE.FAN_TEXT}</Text>
+          <Text style={styles.fanTextStyle}>{STRINGS.TEXTLABLE.FAN_TEXT}</Text>
           {fan === STRINGS.TEXTLABLE.FAN_TEXT ? (
             <Image style={styles.tickImageStyle} source={IMAGES.Tick_IMAGE} />
           ) : null}
@@ -79,8 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BLACK,
     flex: 1,
     paddingHorizontal: 10,
-    borderColor: 'red',
-    borderWidth: 3,
   },
   fanImageView: {
     flexDirection: 'row',
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: 'white',
+    color: COLOR.WHITE,
     fontSize: 24,
     fontWeight: '900',
     marginTop: normalize(20.5),
@@ -101,6 +98,16 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     borderWidth: normalize(1),
+    borderColor: COLOR.LIGHT_GREY,
+  },
+  fanTextStyle:{
+    color:COLOR.WHITE,
+   position:'absolute',
+   marginTop:normalize(43),
+    fontStyle:'italic',
+    marginLeft:normalize(212),
+    fontWeight:'900',
+    fontSize:24
   },
   tickImageStyle: {
     position: 'absolute',
@@ -108,6 +115,7 @@ const styles = StyleSheet.create({
     width: 20,
     right: 13,
     top: 10,
+    resizeMode:'contain'
   },
   fanborderStyle: {
     height: vh(110),
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
   fanText: {
     fontWeight: '900',
     fontSize: normalize,
-    color: 'white',
+    color: COLOR.WHITE,
     alignSelf: 'center',
     left: normalize(62),
     fontStyle: 'italic',

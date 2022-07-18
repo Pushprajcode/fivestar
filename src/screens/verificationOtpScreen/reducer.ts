@@ -1,15 +1,13 @@
+import STRINGS from '../../utils/strings';
+
 const initialState = {
-  data: {},
+  data: [],
 };
 
 const verifyOtpReducer = (state = initialState, action: any) => {
   const {type, payload} = action;
-  console.log('actiondata', action);
-  console.log('safdghdfgh', payload);
-
   switch (type) {
-    case 'SET_OTP':
-      console.log("#######",action,"@@@@@@@@",state)
+    case STRINGS.ACTION_TYPE.SET_OTP:
       return {...state, data: payload};
     default:
       return state;

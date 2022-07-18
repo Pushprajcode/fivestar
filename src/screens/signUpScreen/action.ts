@@ -1,12 +1,16 @@
 import axios from 'axios';
+import STRINGS from '../../utils/strings';
 
-const singUpApiCall = (values: {
-  name: string;
-  phoneNo: number;
-  email: string;
-  password: string;
-  countryCode: string;
-}) => {
+const singUpApiCall = (
+  values: {
+    name: string;
+    email: string;
+    password: string;
+    countryCode: string;
+    phoneNo: number;
+  },
+  callback: Function,
+) => {
   console.log('signupapiactionvalue', values);
   return (dispatch: any) => {
     axios({
@@ -21,8 +25,8 @@ const singUpApiCall = (values: {
       },
     })
       .then(resp => {
-        console.log('response', resp);
-        dispatch({type: 'SET_USERID', payload: resp.data.data});
+        dispatch({type: STRINGS.ACTION_TYPE.SIGN_UP, payload: resp.data.data});
+        callback(resp);
       })
       .catch(err => {
         console.log('error', err);

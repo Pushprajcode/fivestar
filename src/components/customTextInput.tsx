@@ -28,13 +28,12 @@ export default function CustomTextInput(props: any) {
 }
 const styles = StyleSheet.create({
   textInput: {
+    width: vw(350),
+    height: vh(48),
+    borderRadius: normalize(5),
     marginVertical: normalize(5),
+    lineHeight:normalize(24),
     fontSize: normalize(14),
     fontWeight: '500',
-    lineHeight: 24,
-    height: vh(48),
-    width: vw(350),
-    borderRadius: normalize(5),
-    
   },
 });

@@ -1,4 +1,9 @@
+import STRINGS from '../../utils/strings';
+
 const initialState = {
+  name: '',
+  email: '',
+  password: '',
   countryCode: '',
   phoneNo: '',
   userId: '',
@@ -9,7 +14,7 @@ const signUpReducer = (state = initialState, action: any) => {
   console.log('actiondata', action);
 
   switch (type) {
-    case 'SET_USERID':
+    case STRINGS.ACTION_TYPE.SIGN_UP:
       return {...payload};
     default:
       return state;

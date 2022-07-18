@@ -1,23 +1,18 @@
-import {
-  View,
-  StyleSheet,
-  LogBox,
-  Image,
-  Animated,
-  StatusBar,
-} from 'react-native';
+import {View, StyleSheet, LogBox, Image, Animated} from 'react-native';
 
 import React, {useEffect, useRef} from 'react';
-
 import {useNavigation} from '@react-navigation/native';
+import IMAGES from '../../utils/localImages';
+import {normalize, vh, vw} from '../../utils/dimension';
+import COLOR from '../../utils/colors';
 LogBox.ignoreAllLogs();
+
 function SplashScreen(): any {
   const fadeAnim = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 6000,
+      duration: 2000,
       useNativeDriver: false,
     }).start();
   }, [fadeAnim]);
@@ -27,20 +22,10 @@ function SplashScreen(): any {
   }, 3000);
   return (
     <View style={styles.container}>
-      <StatusBar hidden={true} />
-      <Image
-        style={styles.image}
-        source={require('../../assets/images/splashman.png')}
-      />
-      <Image
-        style={styles.imagebackground}
-        source={require('../../assets/images/background.png')}
-      />
+      <Image style={styles.image} source={IMAGES.SPLASH_IMAGE} />
+      <Image style={styles.imagebackground} source={IMAGES.BACKGROUND_IMAGE} />
       <View style={styles.fiveView}>
-        <Image
-          style={styles.fiveimage}
-          source={require('../../assets/images/five.png')}
-        />
+        <Image style={styles.fiveimage} source={IMAGES.FIVE_IMAGE} />
         <Animated.View
           style={[
             styles.fadingContainer,
@@ -48,10 +33,7 @@ function SplashScreen(): any {
               opacity: fadeAnim,
             },
           ]}>
-          <Image
-            style={styles.imageStar}
-            source={require('../../assets/images/star.png')}
-          />
+          <Image style={styles.imageStar} source={IMAGES.STAR_IMAGE} />
         </Animated.View>
       </View>
     </View>
@@ -62,38 +44,37 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLOR.BLACK,
   },
   image: {
     height: '100%',
     width: '100%',
+    resizeMode: 'contain',
   },
   fadingContainer: {
-    padding: 20,
-    backgroundColor: 'powderblue',
+    padding: normalize(20),
   },
   imagebackground: {
-    position: 'absolute',
     height: '100%',
     width: '100%',
+    resizeMode: 'cover',
+    position: 'absolute',
   },
   fiveView: {
-    position: 'absolute',
     flexDirection: 'row',
-    left: 29,
-    top: 20,
-    right: 29,
+    position: 'absolute',
   },
   fiveimage: {
-    height: 80,
-    width: 360,
-    marginTop: 70,
+    height: vh(80),
+    width: vw(360),
+    marginTop: normalize(70),
     alignSelf: 'center',
   },
   imageStar: {
-    height: 80,
-    width: 110.89,
-    top: 50,
-    right: 187,
+    height: vh(80),
+    width: vw(110.89),
+    top: normalize(50),
+    right: normalize(187),
     resizeMode: 'cover',
   },
 });
