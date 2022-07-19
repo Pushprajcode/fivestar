@@ -22,6 +22,7 @@ export default function OtpAction(
     })
       .then(resp => {
         dispatch({type: STRINGS.ACTION_TYPE.SET_OTP, payload: resp.data});
+        console.log('74678478--------->',resp)
         return successResponse(resp);
       })
 

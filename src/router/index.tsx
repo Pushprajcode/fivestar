@@ -14,7 +14,7 @@ import ROUTE_NAMES from './routeNames';
 import IdentityModal from '../components/identityModal';
 import SportsListData from '../screens/completeProfile/sportsSelect';
 import ZipCode from '../screens/completeProfile/zipCode';
-
+import BottomTabComponent from './bottomtab';
 
 const stack = createNativeStackNavigator();
 const NavigationScreen = () => {
@@ -44,9 +44,16 @@ const NavigationScreen = () => {
         <stack.Screen name={ROUTE_NAMES.FAN_ATHLETE} component={FanAthelite} />
         <stack.Screen name={ROUTE_NAMES.EDIT_PROFILE} component={EditProfile} />
         <stack.Screen name={ROUTE_NAMES.MODAL} component={ModalScreen} />
-        <stack.Screen name={ROUTE_NAMES.IDENTITY_MODAL} component={IdentityModal} />
-        <stack.Screen name={ROUTE_NAMES.SPORT_LIST} component={SportsListData}/>
-        <stack.Screen name={ROUTE_NAMES.ZIPCODE}component={ZipCode}/>
+        <stack.Screen
+          name={ROUTE_NAMES.IDENTITY_MODAL}
+          component={IdentityModal}
+        />
+        <stack.Screen
+          name={ROUTE_NAMES.SPORT_LIST}
+          component={SportsListData}
+         />
+        <stack.Screen name={ROUTE_NAMES.ZIPCODE} component={ZipCode} />
+        <stack.Screen name='BottomTabComponent' component={BottomTabComponent}/>
       </stack.Navigator>
     </NavigationContainer>
   );

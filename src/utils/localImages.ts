@@ -27,5 +27,9 @@ const IMAGES = {
   NAME_ARROW: require('../assets/images/namearrow.png'),
   SEARCH_IMAGE: require('../assets/images/search.png'),
   CROSS_SPORT_IMAGE: require('../assets/images/crossimg.png'),
+  ACCOUNT_IMAGE:require('../assets/images/account.png'),
+  ACTIVITY_IMAGE:require('../assets/images/activity.png'),
+  HOME_IMAGE:require('../assets/images/home.png'),
+  UPLOAD_IMAGE:require('../assets/images/upload.png')
 };
 export default IMAGES;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import STRINGS from '../../utils/strings';
 import API_URL from '../../utils/apiUrl';
+import {useNavigation} from '@react-navigation/native';
 
 export const SportAction = (data: string) => {
   //  {data =auth token}
@@ -50,19 +51,37 @@ export const zipcodeAction = (text: string) => {
       });
   };
 };
+
+export const userNameAction = (authToken: string) => {
+  return () => {
+    const $https = axios.create({
+      baseURL: 'https://fivestardevapi.appskeeper.in/api/v1',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+    $https.defaults.headers.common.Authorization = `Bearer ${authToken}`;
+    $https
+      .get(`/user/check-username?username=pushpraj&id=1`)
+      .then(resp => {
+        console.log(resp);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
 export const completeProfileAction = (
-  authToken: string,
-  username: string,
-  id: string,
-  zipcode: string,
   name: string,
-  userType: string,
+  authToken: string,
+  id: string,
+  username: string,
+  zipcode: string,
+  callBack:Function,
+  ErrorCallBack:Function,
 ) => {
-  console.log( username,
-    id,
-    zipcode,
-    name,
-    userType,)
   return () => {
     const $https = axios.create({
       baseURL: API_URL.BASE_URL,
@@ -71,23 +90,24 @@ export const completeProfileAction = (
         Accept: 'application/json',
       },
     });
-
     $https.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-    $https.post(`${API_URL.COMPLETE_PROFILE}`, {
+    $https
+      .post(`${API_URL.COMPLETE_PROFILE}`, {
         username,
         id,
         zipcode,
         name,
-        userType,
-        personalDetails:{}
+        userType: 1,
+        personalDetails: {},
       })
       .then(response => {
-        console.log("comppppllleter === ", response)
+        callBack(response)
+        console.log('comppppllleter  ', response);
       })
+
       .catch(error => {
-        console.log("complete==========>", error)
+        ErrorCallBack(error)
+        console.log('---78459849849589498', error);
       });
   };
-}
-
-
+};

@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import CustomBackButton from '../../components/customBackButton';
 import STRINGS from '../../utils/strings';
@@ -21,13 +22,14 @@ import IdentityModal from '../../components/identityModal';
 import {useDispatch, useSelector} from 'react-redux';
 import CustomTextInput from '../../components/customTextInput';
 import DobModal from '../../components/dobmodal';
-import {SportAction} from './action';
-import { completeProfileAction } from './action';
+import {SportAction, userNameAction} from './action';
+import {completeProfileAction} from './action';
+import {TextInput} from 'react-native-paper';
+
 
 const EditProfile = () => {
   const dispatch = useDispatch<any>();
   const navigation = useNavigation<any>();
-  const {data} = useSelector((store: any) => store.verifyOtpReducer);
   const [imagepro, setImage] = useState('');
   const [imageShort, setImageShort] = useState('');
   const [visible, setVisible] = useState(false);
@@ -36,12 +38,37 @@ const EditProfile = () => {
   const [SelectedSports, setSelectedSports] = useState([]);
   const [selectfan, setSelectfan] = useState('');
   const [dob, setdob] = useState('');
+  const {data} = useSelector((store: any) => store.verifyOtpReducer);
+  const Name = data.data.name;
+  const authToken = data.data.authToken;
+  const id = data.data._id;
+  const username = data.data.username;
+  let userNameChange = useRef<any>(Name);
+  const [changeUserName, setChangeUserName] = useState<any>(Name);
 
-  
-
-  const onpress=()=>{
-    completeProfileAction()
-  }
+  const onpress = () => {
+    dispatch(
+      completeProfileAction(
+        Name,
+        authToken,
+        id,
+        username,
+        zipcode,
+        (resp: any) => {
+          if (resp?.status === 200) {
+            navigation.navigate('BottomTabComponent');
+          }
+        },
+        (err: any) => {
+          Alert.alert('erroe', err);
+        },
+      ),
+    );
+  };
+  const onpressEdit = () => {
+    userNameChange?.current?.focus();
+    dispatch(userNameAction(authToken));
+  };
 
   const imagePickerOnpress = () => {
     ImagePicker.openPicker({
@@ -51,8 +78,6 @@ const EditProfile = () => {
     })
       .then(image => {
         setImage(image.path);
-
-        console.log('image path', image);
       })
       .catch(err => {
         console.log('erorr--------->', err);
@@ -65,7 +90,6 @@ const EditProfile = () => {
       cropping: true,
     })
       .then(image => {
-        console.log('image path', image);
         setImageShort(image.path);
       })
       .catch(err => {
@@ -108,14 +132,31 @@ const EditProfile = () => {
         }
 
         <View style={styles.textInputView}>
-          <CustomTextInput
-            //value={data?.username}
+          <TextInput
             label={STRINGS.TEXTLABLE.USER_NAME}
             style={styles.textInputStyle}
+            value={changeUserName}
+            ref={userNameChange}
+            mode="outlined"
+            outlineColor={COLOR.WHITE}
+            activeOutlineColor={COLOR.WHITE}
+            theme={{
+              colors: {
+                placeholder: COLOR.WHITE,
+                text: COLOR.PRIMARY_BLUE,
+                background: COLOR.BLACK,
+              },
+            }}
+            onChangeText={(text: any) => {
+              setChangeUserName(text);
+            }}
           />
-          <TouchableOpacity style={styles.nameImgTouchable}>
+          <TouchableOpacity
+            onPress={onpressEdit}
+            style={styles.nameImgTouchable}>
             <Image style={styles.namearrowStyle} source={IMAGES.NAME_ARROW} />
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => {
               setVisible(!visible);
@@ -165,7 +206,7 @@ const EditProfile = () => {
                 zipcode: setZipCode,
               });
             }}
-            style={[styles.selectIdentityView,{marginTop:0}]}>
+            style={[styles.selectIdentityView, {marginTop: 0}]}>
             <Text
               style={
                 zipcode.length <= 0 ? styles.dobTextStyle : styles.zipcodestyle
@@ -229,8 +270,11 @@ const EditProfile = () => {
         </View>
       </ScrollView>
 
-      <EnabledButton label="NEXT"
-      onPress={onpress} />
+      {Name != '' && selectfan != '' && dob != '' && zipcode != '' ? (
+        <EnabledButton label="NEXT" onPress={onpress} style={styles.button} />
+      ) : (
+        <DisabledButton label="NEXT" />
+      )}
       {/* identity modal component  called  */}
       {visible && (
         <IdentityModal
@@ -326,15 +370,18 @@ const styles = StyleSheet.create({
     color: COLOR.WHITE,
     height: vh(48),
     width: vw(327),
+    fontSize: 22,
+    marginTop: normalize(20),
   },
   nameImgTouchable: {
     position: 'absolute',
-    marginTop: 25,
+    marginTop: 40,
     right: normalize(20),
   },
   namearrowStyle: {
-    height:vh(18),
+    height: vh(18),
     width: vw(18),
+    resizeMode: 'contain',
   },
   selectIdentityView: {
     height: vh(48),
@@ -398,6 +445,7 @@ const styles = StyleSheet.create({
     height: vh(48),
     width: vw(328),
     marginTop: normalize(15),
+    fontSize: 23,
   },
   elementTouchStyle: {
     flexDirection: 'row',
@@ -447,5 +495,21 @@ const styles = StyleSheet.create({
   },
   sportText: {
     color: COLOR.WHITE,
+  },
+  button: {
+    marginBottom: normalize(20),
+    height: 48,
+    width: vw(333),
+    right: 7,
+  },
+  textInputstyle: {
+    width: vw(350),
+    height: vh(48),
+    borderRadius: normalize(5),
+    marginTop: normalize(10),
+    marginVertical: normalize(10),
+    lineHeight: normalize(24),
+    fontSize: normalize(14),
+    fontWeight: '500',
   },
 });

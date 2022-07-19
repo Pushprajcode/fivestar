@@ -13,6 +13,6 @@ const persistConfig = {
   whitelist: ['verifyOtpReducer']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-export const store = createStore(persistedReducer, {}, enhancer);
+export const store = createStore(persistedReducer, enhancer);
 export const persistor = persistStore(store);
 

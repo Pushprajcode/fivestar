@@ -135,8 +135,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     top: normalize(2),
   },
-  fanView:{
-    alignSelf: 'center', marginTop: 30
+  fanView: {
+    alignSelf: 'center',
+    marginTop: 30,
   },
   fanImageStyle: {
     height: vh(105),

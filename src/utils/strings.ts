@@ -75,6 +75,7 @@ const STRINGS = {
     SET_OTP: 'SET_OTP',
     SET_SPORT: 'SPORTS_SET',
     SET_ZIPCODE: 'ZIPCODE_SET',
+    REEL_DATA:'REEL_DATA',
   },
 };
 export default STRINGS;

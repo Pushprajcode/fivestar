@@ -5,7 +5,7 @@ import COLOR from '../utils/colors';
 import {normalize, vh, vw} from '../utils/dimension';
 
 export default function CustomTextInput(props: any) {
-  const {value, style} = props;
+  const {value, style, onChangeText} = props;
   return (
     <TextInput
       {...props}
@@ -15,6 +15,7 @@ export default function CustomTextInput(props: any) {
       style={[styles.textInput, style]}
       mode="outlined"
       outlineColor={COLOR.WHITE}
+      onChangeText={onChangeText}
       activeOutlineColor={COLOR.WHITE}
       theme={{
         colors: {

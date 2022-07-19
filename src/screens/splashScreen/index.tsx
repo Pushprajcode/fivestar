@@ -5,21 +5,34 @@ import {useNavigation} from '@react-navigation/native';
 import IMAGES from '../../utils/localImages';
 import {normalize, vh, vw} from '../../utils/dimension';
 import COLOR from '../../utils/colors';
+import {useSelector} from 'react-redux';
+import ROUTE_NAMES from '../../router/routeNames';
 LogBox.ignoreAllLogs();
 
 function SplashScreen(): any {
+  const navigation = useNavigation<any>();
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const {data} = useSelector((store: any) => store.verifyOtpReducer);
+  const authToken = data.data.authToken;
+  console.log('hghghghjhgj',authToken);
+  
   useEffect(() => {
+ 
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 2000,
       useNativeDriver: false,
     }).start();
   }, [fadeAnim]);
-  const navigation = useNavigation<any>();
   setTimeout(() => {
     navigation.replace('LoginScreen');
+    // if (authToken){
+    //   console.log('fihjfdiu')
+    //   navigation.navigate(ROUTE_NAMES.EDIT_PROFILE);
+    // }
+    //  else navigation.replace('LoginScreen');
   }, 3000);
+
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={IMAGES.SPLASH_IMAGE} />
